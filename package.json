@@ -1,0 +1,16 @@
+{
+  "name": "MessageMule",
+  "version": "0.1.0",
+  "description": "Autoreply for Messenger",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "arraylist": "^0.1.0",
+    "facebook-chat-api": "^1.4.0"
+  },
+  "devDependencies": {
+    "electron": "~1.7.8"
+  }
+}
