@@ -76,6 +76,8 @@ body {
 
 h1.title {
   font-family: 'Roboto Slab', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color:#3ddc97;
   text-align: center;
 }

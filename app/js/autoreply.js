@@ -5,18 +5,6 @@ var myUserID;
 var whitelist = new ArrayList;
 var credentials = JSON.parse(fs.readFileSync("credentials.json") );
 
-
-function writeCred(email, pass) {
-  fs.writeFile("test.txt", "Hey there!", function(err) {
-      if(err) {
-          return console.log(err);
-      }
-
-      console.log("The file was saved!");
-  });
-
-}
-
 fbm( credentials, { forceLogin: true }, (err, api) => {
   if(err) {
     switch (err.error) {
