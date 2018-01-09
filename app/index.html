@@ -6,21 +6,37 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="app-title">
-      <h1 class="title">Message Mule</h1>
+      <!--Login page-->
+      <div id="login" class="pages">
+      <div class="login page">
+        <div class="app-title">
+          <h1 class="title">Message Mule</h1>
+        </div>
+        <div class="login-page">
+        <div class="form">
+          <div class="message" id="login-status"></div>
+          <form class="login-form" onsubmit="return false;">
+            <input type="text" id="name" placeholder="username"/>
+            <input type="password" id="password" placeholder="password"/>
+            <button name="submit">login</button>
+          </form>
+        </div>
+        <a href="#page2">Switch to page2</a>
+        </div>
+      </div>
+      </div>
+    <!--Second Page-->
+    <div id="page2" class="pages" style="display:none;">
+          <b>Page2</b>
+          <p>Your comments will be published soon...</p>
+          <a href="#login">Edit your comment</a>
     </div>
-    <div class="login-page">
-    <div class="form">
-      <form class="login-form" onsubmit="return false;">
-        <input type="text" id="name" placeholder="username"/>
-        <input type="password" id="password" placeholder="password"/>
-        <button name="submit">login</button>
-      </form>
-    </div>
-  </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
       //require('./renderer.js')
       require('./js/functions.js')
+      require('./js/navigation.js')
     </script>
   </body>
 </html>

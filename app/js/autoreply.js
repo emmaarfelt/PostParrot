@@ -3,7 +3,8 @@ const fbm = require ("facebook-chat-api");
 const ArrayList = require ("arraylist");
 var myUserID;
 var whitelist = new ArrayList;
-var credentials = JSON.parse(fs.readFileSync("credentials.json") );
+var credentials = JSON.parse(fs.readFileSync("credentials.json"));
+
 
 fbm( credentials, { forceLogin: true }, (err, api) => {
   if(err) {

@@ -48,6 +48,13 @@
   color: #FFF;
 }
 
+.form .message {
+  font-family: "Roboto", sans-serif;
+  margin: 0 0 15px;
+  color: #3ddc97;
+  font-size: 14px;
+}
+
 .container {
   position: relative;
   z-index: 1;
