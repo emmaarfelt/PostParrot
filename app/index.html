@@ -5,12 +5,13 @@
     <title>MessageMule</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/tabs-settings.css">
+    <link rel="stylesheet" href="css/starter-page.css">
   </head>
   <body>
       <!--Login page-->
-      <div id="login" class="pages">
+      <div id="login" class="pages" style="display:none;">
         <div class="app-title">
-          <h1 class="title">Message Mule</h1>
+          <h1 class="title">Post Parrot</h1>
         </div>
         <div class="login-page">
         <div class="form">
@@ -20,10 +21,11 @@
             <input type="password" id="password" placeholder="password"/>
             <button name="submit">login</button>
           </form>
-          <a href="#settings">page2</a>
+          <a href="#settings">settings</a>
         </div>
         </div>
       </div>
+
     <!--Settings Page-->
     <div id="settings" class="pages" style="display:none;">
       <div class="app-title">
@@ -39,8 +41,22 @@
         </div>
       </div>
       </div>
-      <a href="#login">Edit your comment</a>
+    </div>
 
+    <!--Starter page-->
+    <div id="starter" class="pages">
+      <div class="app-title">
+        <h1 class="title">Take a Break</h1>
+      </div>
+      <div class="starter-page">
+        <div class="big-button">
+            <button name="starter-button">Start</button>
+        </div>
+        <div class="loader">
+          <span class="loader-inner left"><i></i></span>
+          <span class="loader-inner right"><i></i></span>
+        </div>
+      </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
