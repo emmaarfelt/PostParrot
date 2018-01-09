@@ -1,8 +1,10 @@
 # MessageMule
 
-My first attempt at NodeJS. The desktop app can auto-reply to messages on Facebook.
+My first attempt at NodeJS. The desktop app can auto-reply to messages on Facebook. Work in progess. 
 
 ## Screenshots
+![alt text](http://amagerhalshug.dk/screen-shot-2018-01-09-at-16-01-12/)
+![alt text](http://amagerhalshug.dk/screen-shot-2018-01-09-at-17-23-42/)
 
 ### Installing
 
