@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>MessageMule</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabs-settings.css">
   </head>
   <body>
       <!--Login page-->
       <div id="login" class="pages">
-      <div class="login page">
         <div class="app-title">
           <h1 class="title">Message Mule</h1>
         </div>
@@ -20,16 +20,27 @@
             <input type="password" id="password" placeholder="password"/>
             <button name="submit">login</button>
           </form>
+          <a href="#settings">page2</a>
         </div>
-        <a href="#page2">Switch to page2</a>
+        </div>
+      </div>
+    <!--Settings Page-->
+    <div id="settings" class="pages" style="display:none;">
+      <div class="app-title">
+        <h1 class="title">Settings</h1>
+      </div>
+      <div class="setting-page">
+        <div class="settings">
+          <div class="tab"><h2>Enter message</h2></div>
+          <div class="tab-content">
+            <p>Maximum characters: 140</p>
+            <textarea name="auto-reply-message" rows="4" maxlength="140" placeholder="I'm currently out of office. Will get back to you after Christmas."></textarea></br>
+            <button name="save">save</button>
         </div>
       </div>
       </div>
-    <!--Second Page-->
-    <div id="page2" class="pages" style="display:none;">
-          <b>Page2</b>
-          <p>Your comments will be published soon...</p>
-          <a href="#login">Edit your comment</a>
+      <a href="#login">Edit your comment</a>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

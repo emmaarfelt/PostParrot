@@ -29,10 +29,26 @@ function FBlogin(cred) {
               console.error(err);
       }
       return;
+    } else {
+      //Login success. Save in AppState file.
+      fs.writeFileSync('./appstate.json', JSON.stringify(api.getAppState()));
+      document.getElementById('login-status').textContent = '';
+
+      //Switch page
+      window.location.hash = '#settings';
+
     }
-
-    fs.writeFileSync('./appstate.json', JSON.stringify(api.getAppState()));
-
 
   });
 }
+
+
+/* Save new auto-reply text */
+var save_reply = document.querySelector('div.tab-content button[name="save"]');
+
+save_reply.addEventListener('click', function () {
+  var text = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
+
+  fs.writeFileSync('./app/resources/reply_text.txt', text);
+  console.log("Text updated");
+});

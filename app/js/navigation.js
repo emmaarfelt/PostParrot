@@ -9,7 +9,7 @@ function routePage() {
   switch(pageName) {
     case '#login':
       break;
-    case '#page2':
+    case '#settings':
       break;
   }
 }

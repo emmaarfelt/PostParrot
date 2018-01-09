@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+.setting-page {
+  width: 80%;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.tab {
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    border-radius: 15px 20px 0px 0px;
+    max-width: 45%;
+    text-align: left;
+}
+
+.tab h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+  padding: 15px;
+  text-align: left;
+  color: #3fc1c9;
+  margin-bottom: -14px;
+  text-transform: uppercase;
+  padding-bottom: 16px;
+}
+
+.settings {
+    position: relative;
+    z-index: 1;
+    background: none;
+    max-width: 100%;
+    margin: 0 auto 100px;
+    text-align: center;
+}
+
+.tab-content {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 15px;
+    margin: 0 auto 100px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.tab-content button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #3fc1c9;
+  width: 100%;
+  border: 0;
+  padding: 10px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.tab-content button:hover,.form button:active,.form button:focus {
+  background: #96dde1;
+  color: #FFF;
+}
+
+.tab-content textarea {
+  background: none;
+  border: 2px solid #3ddc97;
+  font-size: 22px;
+  color: #424242;
+  padding: 5px;
+  text-align: left;
+  width: 100%;
+  resize: none;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.tab-content textarea:focus{
+    border: 2px solid #424242;
+}
+
+.tab-content p {
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  color: #424242;
+}
