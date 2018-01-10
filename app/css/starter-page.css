@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+.starter-page {
+  width: 80%;
+  padding: 2% 0 0;
+  margin: auto;
+}
+
+.big-button{
+  position: relative;
+  z-index: 1;
+  background: none;
+  width:360px;
+  margin: 0 auto 100px;
+  text-align: center;
+}
+
+.big-button button{
+  max-width: 360px;
+  max-height: 360px;
+  min-width: 250px;
+  min-height: 250px;
+  width: 300px;
+  height:300px;
+  border-radius: 50%;
+  font-family: 'Roboto Mono', monospace;
+  text-transform: uppercase;
+  font-style: medium;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: 0;
+  transition: 0.5s;
+  background-image: linear-gradient(to right, #3fc1c9 0%, #61ccd2 51%, #3fc1c9 100%);
+  border: 0;
+  color: #FFFFFF;
+  font-size: 50px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.big-button button:hover {
+  background-position: right center;
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.parrots {
+  position:absolute;
+  margin:auto;
+  padding-top:30px;
+  z-index:-1;
+  width: 80%;
+  left: 50%;
+  margin-left: -40%;
+}
+
+.parrot-container {
+  position: relative;
+  padding:10px;
+  width:220px;
+  height:240px;
+  margin: 0 auto;
+  text-align: center;
+  -webkit-transition: 2s; /* Safari */
+  transition: 2s;
+}
+
+.parrot-animation {
+  animation: pop-out 2s ease-in-out;
+}
+
+@keyframes pop-out {
+  0% {transform: scale3d(0, 0, 1); opacity:0;}
+  15% {transform: scale3d(0, 0, 1); opacity:1;}
+  25% {transform: scale3d(0.75, 0.75, 0.75);}
+  100% {transform: scale3d(1, 1, 1);}
+}
+
+.parrot-container iframe {
+  width: 100%;
+  height:100%;
+  outline: 0;
+  border:0;
+}
