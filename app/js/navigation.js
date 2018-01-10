@@ -11,5 +11,9 @@ function routePage() {
       break;
     case '#settings':
       break;
+    case '#parrots':
+      break;
+    case '#starter':
+      break;
   }
 }

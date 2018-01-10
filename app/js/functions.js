@@ -42,7 +42,6 @@ function FBlogin(cred) {
   });
 }
 
-
 /* Save new auto-reply text */
 var save_reply = document.querySelector('div.tab-content button[name="save"]');
 
@@ -51,4 +50,19 @@ save_reply.addEventListener('click', function () {
 
   fs.writeFileSync('./app/resources/reply_text.txt', text);
   console.log("Text updated");
+});
+
+/* Start auto-replying messages */
+var start_replies = document.querySelector('div.big-button button[name="starter-button"]');
+
+start_replies.addEventListener('click', function() {
+  start_replies.style.transform = 'scale(0.0, 0.0)';
+  start_replies.style.opacity = '0.0';
+
+  var parrot_div = document.querySelector('div.parrots');
+  parrot_div.style.display = 'inline';
+
+  var parrot_container = document.querySelector('div.parrot-container');
+  parrot_container.classList.add('parrot-animation');
+
 });

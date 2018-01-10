@@ -2,7 +2,7 @@
 
 .setting-page {
   width: 80%;
-  padding: 8% 0 0;
+  padding: 2% 0 0;
   margin: auto;
 }
 
@@ -20,7 +20,7 @@
   font-size: 20px;
   padding: 15px;
   text-align: left;
-  color: #3fc1c9;
+  color: #F7A703;
   margin-bottom: -14px;
   text-transform: uppercase;
   padding-bottom: 16px;
@@ -67,9 +67,10 @@
 }
 
 .tab-content textarea {
-  background: none;
-  border: 2px solid #3ddc97;
-  font-size: 22px;
+  font-family: "Roboto", sans-serif;
+  background: #f2f2f2;
+  border: 2px solid #f2f2f2;
+  font-size: 14px;
   color: #424242;
   padding: 5px;
   text-align: left;
@@ -81,7 +82,8 @@
 }
 
 .tab-content textarea:focus{
-    border: 2px solid #424242;
+    border: 2px solid #3ddc97;
+    outline: none;
 }
 
 .tab-content p {

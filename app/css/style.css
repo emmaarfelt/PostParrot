@@ -3,7 +3,7 @@
 
 .login-page {
   width: 360px;
-  padding: 8% 0 0;
+  padding: 2% 0 0;
   margin: auto;
 }
 
@@ -71,22 +71,28 @@
 }
 
 body {
-  background: #13232f; /* fallback for old browsers */
+  background: #1b3244; /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(right, #1b3244, #1f3a4f);
+  background: -moz-linear-gradient(right, #1b3244, #1f3a4f);
+  background: -o-linear-gradient(right, #1b3244, #1f3a4f);
+  background: linear-gradient(to left, #1b3244, #1f3a4f);*/
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 .app-title {
   width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+  padding: 4% 0 0;
+  margin: 0 auto;
 }
 
 h1.title {
   font-family: 'Roboto Slab', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color:#3ddc97;
+  color: #3ddc97;
   text-align: center;
+  font-size: 52px;
 }

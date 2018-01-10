@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>MessageMule</title>
+    <title>PostParrot</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/tabs-settings.css">
     <link rel="stylesheet" href="css/starter-page.css">
@@ -21,7 +21,7 @@
             <input type="password" id="password" placeholder="password"/>
             <button name="submit">login</button>
           </form>
-          <a href="#settings">settings</a>
+          <a href="#parrots">settings</a>
         </div>
         </div>
       </div>
@@ -48,16 +48,18 @@
       <div class="app-title">
         <h1 class="title">Take a Break</h1>
       </div>
+      <div class="parrots" style="display:none;">
+        <div class="parrot-container">
+          <iframe src="resources/parrots/parrot1.html" scrolling="no"></iframe>
+        </div>
+      </div>
       <div class="starter-page">
         <div class="big-button">
             <button name="starter-button">Start</button>
         </div>
-        <div class="loader">
-          <span class="loader-inner left"><i></i></span>
-          <span class="loader-inner right"><i></i></span>
-        </div>
       </div>
     </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
