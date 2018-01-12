@@ -6,43 +6,62 @@
   margin: auto;
 }
 
-.tab {
-    position: relative;
-    z-index: 2;
-    background-color: #fff;
-    border-radius: 15px 20px 0px 0px;
-    max-width: 45%;
-    text-align: left;
+.settings-container {
+    margin: 0 auto;
+    min-width: 500px;
+    width: 70%;
+    max-width: 100%;
+    background: none;
 }
 
-.tab h2 {
+.settings-container input {
+	height: 40px;
+	visibility: hidden;
+}
+
+.settings-container label {
+  background: #f9f9f9;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  display: block;
+  float: left;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 20px;
-  padding: 15px;
-  text-align: left;
   color: #F7A703;
-  margin-bottom: -14px;
   text-transform: uppercase;
-  padding-bottom: 16px;
+  line-height: 40px;
+  margin-right: 4px;
+  padding: 3px 32px;
 }
 
-.settings {
-    position: relative;
-    z-index: 1;
-    background: none;
-    max-width: 100%;
-    margin: 0 auto 100px;
-    text-align: center;
+.settings-container input:hover + label {
+	background: #ddd;
+	color: #666;
+}
+
+.settings-container input:checked + label {
+	background: #fff;
+	color: #444;
+	position: relative;
+	z-index: 6;
 }
 
 .tab-content {
     position: relative;
-    z-index: 1;
+    z-index: 5;
     background: #fff;
-    padding: 15px;
-    margin: 0 auto 100px;
-    text-align: center;
+    padding: 25px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 0 4px 4px 4px;
+    min-height: 320px;
+    width: 100%;
+}
+
+.tab {
+    opacity: 0;
+    z-index: -100;
+    width: calc(100% - 50px);
+    position:absolute;
 }
 
 .tab-content button {
@@ -91,4 +110,16 @@
   font-family: "Roboto", sans-serif;
   font-size: 12px;
   color: #424242;
+}
+
+
+.settings-container input#tab-1:checked ~ .tab-content #enter-message,
+.settings-container input#tab-2:checked ~ .tab-content #content-2,
+.settings-container input#tab-3:checked ~ .tab-content #content-3 {
+    opacity: 1;
+    z-index: 100;
+}
+
+input.visible {
+  visibility: visible !important;
 }
