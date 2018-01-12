@@ -1,6 +1,7 @@
 const fs = require("fs");
 const login = require("facebook-chat-api");
 
+
 /* Getting credentials and saving in credentials.json for login */
 var submit_cred = document.querySelector('div.form button[name="submit"]');
 
@@ -35,8 +36,7 @@ function FBlogin(cred) {
       document.getElementById('login-status').textContent = '';
 
       //Switch page
-      window.location.hash = '#settings';
-
+      window.location.hash = '#starter';
     }
 
   });
@@ -52,7 +52,7 @@ save_reply.addEventListener('click', function () {
   console.log("Text updated");
 });
 
-/* Start auto-replying messages */
+/* Parrot animation */
 var start_replies = document.querySelector('div.big-button button[name="starter-button"]');
 
 start_replies.addEventListener('click', function() {
