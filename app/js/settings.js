@@ -12,7 +12,7 @@ for (var i = 0; i < setting_buttons.length; i++) {
     /* Set up buttons according to settings.json file */
     if (settings[i].settingname == name) {
       settingbutton.checked = settings[i].settingstatus;
-    }git status
+    }
 
     setupSetting(settingbutton);
 }
