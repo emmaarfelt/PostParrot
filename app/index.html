@@ -20,6 +20,7 @@
             <input type="text" id="name" placeholder="username"/>
             <input type="password" id="password" placeholder="password"/>
             <button name="submit">login</button>
+            <a href="#settings">settings</a>
           </form>
         </div>
         </div>
@@ -35,19 +36,50 @@
 	    <label for="tab-1">Enter message</label>
 
 	    <input id="tab-2" type="radio" name="tab-group" />
-	    <label for="tab-2">Tab 2</label>
+	    <label for="tab-2">Group messages</label>
 
 	    <input id="tab-3" type="radio" name="tab-group" />
-	    <label for="tab-3">Tab 3</label>
+	    <label for="tab-3">Whitelist</label>
+
 	    <div class="tab-content">
 	        <div class="tab" id="enter-message">
             <p>Maximum characters: 140</p>
             <textarea name="auto-reply-message" rows="4" maxlength="140" placeholder="I'm currently out of office. Will get back to you after Christmas."></textarea></br>
             <button name="save">save</button>
 	        </div>
+
 	        <div class="tab" id="content-2">
-	            Hello tab 2
+            <table class="settings-table">
+            <tr>
+              <td class="toggle-setting">Ignore group messages</td>
+              <td class="toggle-button">
+                <div class="toggle-container">
+                <input type="checkbox" id="ignore-group-messages" checked/>
+                <label for="ignore-group-messages"></label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="toggle-setting">Auto-reply in groupchat when tagged</td>
+              <td class="toggle-button">
+                <div class="toggle-container">
+                <input type="checkbox" id="reply-groupchat-mentions" />
+                <label for="reply-groupchat-mentions"></label>
+                </div>
+              </td>
+            </tr>
+            <!-- <tr>
+              <td class="toggle-setting"></td>
+              <td class="toggle-button">
+                <div class="toggle-container">
+                <input type="checkbox" id="switch3" />
+                <label for="switch3"></label>
+                </div>
+              </td>
+            </tr> -->
+          </table>
 	        </div>
+
 	        <div class="tab" id="content-3">
 	        	Hello tab 3
 	        </div>
@@ -69,6 +101,7 @@
         <div class="big-button">
             <button name="starter-button">Start</button>
         </div>
+        <a href="#settings">settings</a>
       </div>
     </div>
 
@@ -77,6 +110,7 @@
       //require('./renderer.js')
       require('./js/start.js')
       require('./js/functions.js')
+      require('./js/settings.js')
       require('./js/navigation.js')
     </script>
   </body>
