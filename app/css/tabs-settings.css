@@ -15,12 +15,12 @@
 }
 
 /* Tabs and tab content styles */
-.settings-container input {
+input.tab-menu {
 	height: 40px;
 	visibility: hidden;
 }
 
-.settings-container label {
+label.tab-menu  {
   background: #f9f9f9;
   border-radius: 4px 4px 0 0;
   cursor: pointer;
@@ -35,12 +35,12 @@
   padding:5px 32px;
 }
 
-.settings-container input:hover + label {
+input.tab-menu:hover + label.tab-menu {
 	background: #ddd;
 	color: #666;
 }
 
-.settings-container input:checked + label {
+input.tab-menu:checked + label.tab-menu {
 	background: #fff;
 	color: #444;
 	position: relative;
@@ -65,32 +65,11 @@
     position:absolute;
 }
 
-.tab-content button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #3fc1c9;
-  width: 100%;
-  border: 0;
-  padding: 10px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-.tab-content button:hover,.form button:active,.form button:focus {
-  background: #96dde1;
-  color: #FFF;
-}
-
 .tab-content textarea {
   font-family: "Roboto", sans-serif;
   background: #f2f2f2;
   border: 2px solid #f2f2f2;
-  font-size: 14px;
+  font-size: 18px;
   color: #424242;
   padding: 5px;
   text-align: left;
@@ -109,7 +88,7 @@
 .tab-content p {
   text-align: left;
   font-family: "Roboto", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   color: #424242;
 }
 
@@ -182,4 +161,81 @@ input.visible {
   font-family: "Roboto", sans-serif;
   font-size:18px;
   color: #424242;
+}
+
+.settings-list {
+  width:100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.settings-list input[type=text] {
+  width: 100%;
+  padding:30px 10px;
+  font-size: 20px;
+  font-style: medium;
+  outline: none;
+  border:0px;
+  border-bottom:3px solid #f6f6f6;
+  color: #424242;
+  visibility: visible;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.settings-list input[type=text]:focus {
+  border-bottom:3px solid #3ddc97;
+  color: #424242;
+}
+
+.settings-list input[type=checkbox] {
+  height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.settings-list label {
+  height: 25px;
+  display: block;
+  border-bottom:1px solid #f6f6f6;
+  padding:15px 10px;
+  font-family: "Roboto", sans-serif;
+  font-size:18px;
+  color: #424242;
+  background-color: none;
+  transition: all 0.3s ease;
+}
+
+.settings-list input:checked + label {
+  color: #fff;
+  font-style: medium;
+  background-color: #F7A703;
+}
+
+.settings-list input:hover + label {
+  color: #F7A703;
+  font-style: bold;
+  background-color: #f2f2f2;
+}
+
+.settings-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height:275px;
+    overflow:auto;
+}
+
+.settings-list li {
+  border-bottom:1px solid #f6f6f6;
+}
+
+.settings-list li.is-hidden {
+    height: 0;
+    font-size: 0;
+    padding: 0;
+    border: none;
+    visibility: hidden;
 }

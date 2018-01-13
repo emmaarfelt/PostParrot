@@ -3,6 +3,7 @@ const login = require("facebook-chat-api");
 const ArrayList = require ("arraylist");
 var replied_threads = new ArrayList;
 const default_reply = "I'm currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call."
+var active_api = null;
 
 const settings = require('./settings.js');
 var IGNORE_GROUPCHAT = settings.getsettingstatus('ignore-group-messages');
@@ -36,6 +37,12 @@ function getCredentials() {
 function startReply() {
   login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
+    active_api = api;
+
+    api.getFriendsList((err, data) => {
+        if(err) return console.error(err);
+        console.log(data);
+    });
 
     var ownUserID = api.getCurrentUserID();
 
@@ -60,14 +67,14 @@ function startReply() {
                }
              } else if(REPLY_MENTIONS) {
                var mentions = message.mentions;
-               /* UNTESTED CODE */
+
                if(!mentions == null) {
                  if(mentions.contains(ownUserID)) {
                    api.sendMessage(reply, message.threadID);
                    replied_threads.add(message.threadID);
                  }
                }
-               /*************************/ 
+
              } else {
               api.sendMessage(reply, message.threadID);
               replied_threads.add(message.threadID);
@@ -80,6 +87,17 @@ function startReply() {
    });
   });
 }
+
+/* Get settings from other files */
+var methods = {
+  getFriends: function() {
+    active_api.getFriendsList((err, data) => {
+        if(err) return null;
+        return data;
+    });
+  }
+};
+module.exports = methods;
 
 /* Parrot animation */
 var start_replies = document.querySelector('div.big-button button[name="starter-button"]');

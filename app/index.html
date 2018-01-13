@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/tabs-settings.css">
     <link rel="stylesheet" href="css/starter-page.css">
+    <link rel="stylesheet" href="css/login.css">
   </head>
   <body>
       <!--Login page-->
@@ -20,26 +21,26 @@
             <input type="text" id="name" placeholder="username"/>
             <input type="password" id="password" placeholder="password"/>
             <button name="submit">login</button>
-            <a href="#settings">settings</a>
           </form>
         </div>
         </div>
       </div>
 
     <!--Settings Page-->
-    <div id="settings" class="pages" style="display:none;">
+    <div id="settings" class="pages">
       <div class="app-title">
         <h1 class="title">Settings</h1>
       </div>
 	<div class="settings-container">
-	    <input id="tab-1" type="radio" name="tab-group" checked="checked" />
-	    <label for="tab-1">Enter message</label>
+	    <input id="tab-1" class="tab-menu" type="radio" name="tab-group" checked="checked" />
+	    <label for="tab-1" class="tab-menu">Enter message</label>
 
-	    <input id="tab-2" type="radio" name="tab-group" />
-	    <label for="tab-2">Group messages</label>
+	    <input id="tab-2" class="tab-menu" type="radio" name="tab-group" />
+	    <label for="tab-2" class="tab-menu">Group messages</label>
 
-	    <input id="tab-3" type="radio" name="tab-group" />
-	    <label for="tab-3">Whitelist</label>
+
+	    <input id="tab-3" class="tab-menu" type="radio" name="tab-group" />
+	    <label for="tab-3" class="tab-menu">Whitelist</label>
 
 	    <div class="tab-content">
 	        <div class="tab" id="enter-message">
@@ -81,14 +82,18 @@
 	        </div>
 
 	        <div class="tab" id="content-3">
-	        	Hello tab 3
+            <div class="settings-list">
+              <input type="text" id="filter" placeholder="Type to search"/>
+                <ul id="friends">
+                </ul>
+              </div>
 	        </div>
 	    </div>
 	</div>
       </div>
 
     <!--Starter page-->
-    <div id="starter" class="pages">
+    <div id="starter" class="pages" style="display:none;">
       <div class="app-title">
         <h1 class="title">Post Parrot</h1>
       </div>
@@ -101,7 +106,6 @@
         <div class="big-button">
             <button name="starter-button">Start</button>
         </div>
-        <a href="#settings">settings</a>
       </div>
     </div>
 

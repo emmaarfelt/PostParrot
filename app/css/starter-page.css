@@ -20,10 +20,12 @@
   max-height: 360px;
   min-width: 250px;
   min-height: 250px;
-  width: 300px;
-  height:300px;
+  width: 360px;
+  height:360px;
   border-radius: 50%;
   font-family: 'Roboto Mono', monospace;
+  color: #FFFFFF;
+  font-size: 60px;
   text-transform: uppercase;
   font-style: medium;
   -webkit-font-smoothing: antialiased;
@@ -32,8 +34,6 @@
   transition: 0.5s;
   background-image: linear-gradient(to right, #3fc1c9 0%, #61ccd2 51%, #3fc1c9 100%);
   border: 0;
-  color: #FFFFFF;
-  font-size: 50px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
