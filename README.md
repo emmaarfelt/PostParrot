@@ -5,6 +5,7 @@ My first attempt at a desktop application. PostParrot can auto-reply to messages
 ## Screenshots
 ![alt text](http://emmaarfelt.com/img/pp1.png)
 ![alt text](http://emmaarfelt.com/img/pp2.png)
+![alt text](http://emmaarfelt.com/img/pp3.png)
 
 ## Installing
 
