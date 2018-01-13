@@ -4,6 +4,7 @@ const ArrayList = require ("arraylist");
 var myUserID;
 var whitelist = new ArrayList;
 var credentials = JSON.parse(fs.readFileSync("credentials.json"));
+var settings = JSON.parse(fs.readFileSync('./app/resources/settings.json', 'utf8'));
 
 
 fbm( credentials, { forceLogin: true }, (err, api) => {

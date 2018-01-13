@@ -36,3 +36,25 @@ function editSetting(name, checked) {
 
   fs.writeFileSync('./app/resources/settings.json', JSON.stringify(settings));
 }
+
+/* Save new auto-reply text */
+var save_reply = document.querySelector('div.tab-content button[name="save"]');
+
+save_reply.addEventListener('click', function () {
+  var text = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
+
+  fs.writeFileSync('./app/resources/reply_text.txt', text);
+  console.log("Text updated");
+});
+
+/* Get settings from other files */
+var methods = {
+	getsettingstatus: function(setting_name) {
+    for (var i=0; i<settings.length; i++) {
+        if (settings[i].settingname == setting_name) {
+          return settings[i].settingstatus;
+        }
+	  }
+  }
+};
+module.exports = methods;
