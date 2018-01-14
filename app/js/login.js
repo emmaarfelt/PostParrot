@@ -36,7 +36,7 @@ function FBlogin(cred) {
       document.getElementById('login-status').textContent = '';
 
       //Switch page
-      window.location.hash = '#starter';
+      window.location.href = 'index.html';
     }
 
   });

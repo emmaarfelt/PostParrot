@@ -6,6 +6,7 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+const fs = require("fs")
 const path = require('path')
 const url = require('url')
 const Menu = electron.Menu;
@@ -18,31 +19,21 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'app/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
-
-  //mainWindow.webContents.openDevTools()
-
-  /*const menuTemplate = [
-    {
-        label: 'Electron',
-        submenu: [
-            {
-                label: 'About ...',
-                click: () => {
-                    console.log('About Clicked');
-                }
-            }
-        ]
-    }
-  ];
-
-  const menu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(menu);*/
+  var appstate = fs.existsSync('./appstate.json');
+  if(appstate) {
+    // and load the index.html of the app.
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'app/index.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
+  } else {
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'app/login.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
+  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

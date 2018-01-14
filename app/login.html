@@ -2,23 +2,32 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>PostParrot</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
   </head>
   <body>
-    <h1>Login</h1>
-    <div class="login-page">
-      <div class="form">
-        <form class="login-form">
-          <input type="text" placeholder="username"/>
-          <input type="password" placeholder="password"/>
-          <button>login</button>
-        </form>
+      <!--Login page-->
+      <div id="login" class="pages">
+        <div class="app-title">
+          <h1 class="title">Login</h1>
+        </div>
+        <div class="login-page">
+        <div class="form">
+          <div class="message" id="login-status"></div>
+          <form class="login-form" onsubmit="return false;">
+            <input type="text" id="name" placeholder="username"/>
+            <input type="password" id="password" placeholder="password"/>
+            <button name="submit">login</button>
+          </form>
+        </div>
+        </div>
       </div>
-    </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
+      require('./js/login.js')
+      require('./js/navigation.js')
     </script>
   </body>
 </html>

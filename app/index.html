@@ -9,23 +9,6 @@
     <link rel="stylesheet" href="css/login.css">
   </head>
   <body>
-      <!--Login page-->
-      <div id="login" class="pages" style="display:none;">
-        <div class="app-title">
-          <h1 class="title">Login</h1>
-        </div>
-        <div class="login-page">
-        <div class="form">
-          <div class="message" id="login-status"></div>
-          <form class="login-form" onsubmit="return false;">
-            <input type="text" id="name" placeholder="username"/>
-            <input type="password" id="password" placeholder="password"/>
-            <button name="submit">login</button>
-          </form>
-        </div>
-        </div>
-      </div>
-
     <!--Settings Page-->
     <div id="settings" class="pages">
       <div class="app-title">
@@ -113,7 +96,6 @@
     <script>
       //require('./renderer.js')
       require('./js/start.js')
-      require('./js/login.js')
       require('./js/settings.js')
       require('./js/navigation.js')
     </script>
