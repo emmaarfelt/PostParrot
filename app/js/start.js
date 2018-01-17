@@ -6,6 +6,7 @@ var replied_threads = new ArrayList;
 const settings = require('./settings.js');
 var IGNORE_GROUPCHAT = settings.getsettingstatus('ignore-group-messages');
 var REPLY_MENTIONS = settings.getsettingstatus('reply-groupchat-mentions');
+var whitelist = settings.getWhitelist();
 
 var reply = fs.readFileSync('./app/resources/reply_text.txt', 'utf8', function(err, data) {
               if (err) throw err;
@@ -31,20 +32,20 @@ start_replies.addEventListener('click', function () {
 
 function startReply() {
   login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
-    if(err) return console.error(err);
+    if(err) return window.location.href = 'login.html';
 
     var ownUserID = api.getCurrentUserID();
 
     api.listen((err, message) => {
       if(!replied_threads.contains(message.threadID)) {
            if (message.senderID == ownUserID) {
-           // This message was sent by you!
-           if (message.body == "/stop") {
-               api.sendMessage("<autoreplies were already disabled for this thread>", message.threadID);
-           }
-           if (message.body == "/resume") {
-               api.sendMessage("<autoreplies are enabled for this thread>", message.threadID);
-           }
+             // This message was sent by you!
+             if (message.body == "/stop") {
+                 api.sendMessage("<autoreplies were already disabled for this thread>", message.threadID);
+             }
+             if (message.body == "/resume") {
+                 api.sendMessage("<autoreplies are enabled for this thread>", message.threadID);
+             }
          } else {
              if(IGNORE_GROUPCHAT) {
                if (!message.isGroup) {
@@ -56,20 +57,23 @@ function startReply() {
                }
              } else if(REPLY_MENTIONS) {
                var mentions = message.mentions;
-
                if(!mentions == null) {
                  if(mentions.contains(ownUserID)) {
                    api.sendMessage(reply, message.threadID);
                    replied_threads.add(message.threadID);
                  }
                }
-
              } else {
-              api.sendMessage(reply, message.threadID);
-              replied_threads.add(message.threadID);
-              console.info("Thread id:"+message.threadID);
-              console.info(replied_threads.lenght);
-              console.info("I've just responded to a message");
+               if(!whitelist.contains(message.senderID)) {
+                 api.sendMessage(reply, message.threadID);
+                 replied_threads.add(message.threadID);
+                 console.info("Thread id:"+message.threadID);
+                 console.info(replied_threads.lenght);
+                 console.info("I've just responded to a message");
+               } else {
+                 console.info("Received message from whitelisted person");
+                 /* todo: create electron alert w/notification */
+               }
             }
           }
      } else {console.info("Already auto-replied in this thread");}

@@ -1,10 +1,23 @@
 const fs = require("fs");
 const connection = require('./start.js');
+const login = require("facebook-chat-api");
+const ArrayList = require ("arraylist");
+
+
+/* Fetch userid for whitelisted users */
+var whitelist = new ArrayList;
+fs.readFile('./app/resources/whitelist.txt', 'utf8', function(err, data) {
+    if (err) return err
+    list = data.toString().split('\n');
+    for(var i=0; i<list.length; i++) {
+        whitelist.add(list[i])
+        console.log(whitelist)
+    }
+    whitelist.remove("");
+});
 
 var setting_buttons = document.querySelectorAll('input[type=checkbox]');
-
 var settings = JSON.parse(fs.readFileSync('./app/resources/settings.json', 'utf8'));
-
 for (var i = 0; i < setting_buttons.length; i++) {
     var settingbutton = setting_buttons[i];
     var name = settingbutton.attributes['id'].value;
@@ -33,9 +46,9 @@ function editSetting(name, checked) {
         break;
       }
   }
-
   fs.writeFileSync('./app/resources/settings.json', JSON.stringify(settings));
 }
+
 
 /* Get settings from other files */
 var methods = {
@@ -45,6 +58,9 @@ var methods = {
           return settings[i].settingstatus;
         }
 	  }
+  },
+  getWhitelist: function() {
+    return whitelist;
   }
 };
 module.exports = methods;
@@ -59,37 +75,10 @@ save_reply.addEventListener('click', function () {
   console.log("Text updated");
 });
 
-
-/* Construct whitelist */
-/* Generate list of friends */
-var friends = [{'userID':837374, 'fullName':'Camilla Nielsen'}]/*connection.getFriends();*/
-if(friends == null)
-{
-  //Create new HTML element to tell user to connect with FB - evt. login redirect
-} else {
-  for (var i = 0; i < friends.length; i++) {
-     var friend = friends[i];
-     var friendID = friend.userID;
-     var friendName = friend.fullName;
-
-     var li = document.createElement('li');
-
-     var input = document.createElement('input');
-     input.setAttribute('type','checkbox');
-     input.setAttribute('id',friendID);
-
-     var label = document.createElement('label');
-     label.setAttribute('for',friendID);
-     label.innerHTML = friendName;
-
-     document.getElementById('friends').appendChild(li).append(input,label);
-  }
-}
-
-var filter = document.getElementById('filter');
+/* Search function for whitelist */
+var listItems = [];
 var list = document.getElementById('friends');
-var listItems = list.querySelectorAll('li');
-
+var filter = document.getElementById('filter');
 /* Search function for filtering friends */
 filter.addEventListener('keyup', function(e) {
   /* Found on codepen.io @hmps modified slightly */
@@ -107,3 +96,56 @@ filter.addEventListener('keyup', function(e) {
     }
   }
 });
+
+/* Construct whitelist */
+function constructWhitelist(friends) {
+  for (var i = 0; i < friends.length; i++) {
+     var friend = friends[i];
+     var friendID = friend.userID;
+     var friendName = friend.fullName;
+
+     var li = document.createElement('li');
+
+     var input = document.createElement('input');
+     input.setAttribute('type','checkbox');
+     input.setAttribute('id',friendID);
+     if (whitelist.indexOf(friendID) > -1) {
+       input.setAttribute('checked', true);
+     }
+
+     var label = document.createElement('label');
+     label.setAttribute('for',friendID);
+     label.innerHTML = friendName;
+
+     document.getElementById('friends').appendChild(li).append(input,label);
+  }
+  listItems = list.querySelectorAll('li');
+}
+
+try {
+    var friendlist = JSON.parse(fs.readFileSync('./app/resources/friendlist.json', 'utf8'));
+    constructWhitelist(friendlist);
+  } catch (e) {
+    login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
+      if(err) return console.error(err);
+
+      api.getFriendsList((err, data) => {
+            if(err) return console.error(err);
+
+            constructWhitelist(data);
+            fs.writeFile('./app/resources/friendlist.json', JSON.stringify(data));
+        });
+    });
+  }
+
+  var save_whitelist = document.querySelector('div.whitelist button[name="save"]');
+
+  save_whitelist.addEventListener('click', function () {
+    fs.writeFileSync('./app/resources/whitelist.txt', ''); //Clear whitelist
+    whitelisted = document.querySelectorAll('div.whitelist input[type=checkbox]:checked');
+    for(var i=0; i < whitelisted.length; i++) {
+      var friendID = whitelisted[i].id;
+
+      fs.appendFileSync('./app/resources/whitelist.txt', '' + friendID + '\n');
+    }
+  });

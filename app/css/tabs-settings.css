@@ -94,8 +94,8 @@ input.tab-menu:checked + label.tab-menu {
 
 
 .settings-container input#tab-1:checked ~ .tab-content #enter-message,
-.settings-container input#tab-2:checked ~ .tab-content #content-2,
-.settings-container input#tab-3:checked ~ .tab-content #content-3 {
+.settings-container input#tab-2:checked ~ .tab-content #group-message-settings,
+.settings-container input#tab-3:checked ~ .tab-content #whitelist-settings {
     opacity: 1;
     z-index: 100;
 }
@@ -120,8 +120,8 @@ input.visible {
 .toggle-container label {
   float:right;
 	cursor: pointer;
-	width: 15px;
-	height: 25px;
+	width: 65px;
+	height: 36px;
 	background: #e5e5e5;
 	display: block;
 	border-radius: 50px;
@@ -163,14 +163,16 @@ input.visible {
   color: #424242;
 }
 
-.settings-list {
+
+/* Settings tab regarding whitelist */
+.whitelist {
   width:100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-.settings-list input[type=text] {
+.whitelist input[type=text] {
   width: 100%;
   padding:30px 10px;
   font-size: 20px;
@@ -183,24 +185,31 @@ input.visible {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
-.settings-list input[type=text]:focus {
+.whitelist input[type=text]:focus {
   border-bottom:3px solid #3ddc97;
   color: #424242;
 }
 
-.settings-list input[type=checkbox] {
-  height: 0;
-	width: 0;
-	visibility: hidden;
+.whitelist input[type=text]:hover {
+  border-bottom:3px solid #3ddc97;
+  cursor: text;
 }
 
-.settings-list label {
+.whitelist input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position:absolute;
+}
+
+.whitelist label {
   height: 25px;
   display: block;
   border-bottom:1px solid #f6f6f6;
-  padding:15px 10px;
+  padding:20px 10px;
   font-family: "Roboto", sans-serif;
   font-size:18px;
   color: #424242;
@@ -208,34 +217,48 @@ input.visible {
   transition: all 0.3s ease;
 }
 
-.settings-list input:checked + label {
+.whitelist input:checked + label {
+  cursor: pointer;
   color: #fff;
-  font-style: medium;
   background-color: #F7A703;
 }
 
-.settings-list input:hover + label {
-  color: #F7A703;
-  font-style: bold;
-  background-color: #f2f2f2;
+.whitelist input:active + label {
+  cursor: pointer;
+  color: #fff;
+  background-color: #F7A703;
 }
 
-.settings-list ul {
+.whitelist input:hover + label {
+  cursor: pointer;
+  font-weight: medium;
+}
+
+.whitelist ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    max-height:275px;
+    max-height:215px;
     overflow:auto;
 }
 
-.settings-list li {
+.whitelist li {
   border-bottom:1px solid #f6f6f6;
 }
 
-.settings-list li.is-hidden {
+.whitelist li.is-hidden {
     height: 0;
     font-size: 0;
     padding: 0;
     border: none;
     visibility: hidden;
+}
+
+.top button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    float: right;
+    margin-top: 23px;
 }

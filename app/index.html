@@ -10,7 +10,7 @@
   </head>
   <body>
     <!--Settings Page-->
-    <div id="settings" class="pages">
+    <div id="settings" class="pages" style="display:none;">
       <div class="app-title">
         <h1 class="title">Settings</h1>
       </div>
@@ -32,7 +32,7 @@
             <button name="save">save</button>
 	        </div>
 
-	        <div class="tab" id="content-2">
+	        <div class="tab" id="group-message-settings">
             <table class="settings-table">
             <tr>
               <td class="toggle-setting">Ignore group messages</td>
@@ -64,9 +64,12 @@
           </table>
 	        </div>
 
-	        <div class="tab" id="content-3">
-            <div class="settings-list">
+	        <div class="tab" id="whitelist-settings">
+            <div class="whitelist">
+              <div class="top">
               <input type="text" id="filter" placeholder="Type to search"/>
+              <button name="save">save</button>
+              </div>
                 <ul id="friends">
                 </ul>
               </div>
@@ -76,7 +79,7 @@
       </div>
 
     <!--Starter page-->
-    <div id="starter" class="pages" style="display:none;">
+    <div id="starter" class="pages">
       <div class="app-title">
         <h1 class="title">Post Parrot</h1>
       </div>
@@ -89,6 +92,10 @@
         <div class="big-button">
             <button name="starter-button">Start</button>
         </div>
+      </div>
+      <div class="setup-buttons">
+        <button name="starter-button">Settings</button>
+        <button name="starter-button">Stop</button>
       </div>
     </div>
 
