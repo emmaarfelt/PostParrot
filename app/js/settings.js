@@ -1,69 +1,45 @@
 const fs = require("fs");
 const connection = require('./start.js');
 const login = require("facebook-chat-api");
-const ArrayList = require ("arraylist");
 
+var statistics = JSON.parse(fs.readFileSync('./app/resources/statistics.json', 'utf8'));
+var whitelist = JSON.parse(fs.readFileSync('./app/resources/whitelist.json', 'utf8'));
 
-/* Fetch userid for whitelisted users */
-var whitelist = new ArrayList;
-fs.readFile('./app/resources/whitelist.txt', 'utf8', function(err, data) {
-    if (err) return err
-    list = data.toString().split('\n');
-    for(var i=0; i<list.length; i++) {
-        whitelist.add(list[i])
-        console.log(whitelist)
-    }
-    whitelist.remove("");
-});
-
-var setting_buttons = document.querySelectorAll('input[type=checkbox]');
+var ignore_groups = document.getElementById('ignore-group-messages');
+var reply_tags = document.getElementById('reply-groupchat-mentions');
 var settings = JSON.parse(fs.readFileSync('./app/resources/settings.json', 'utf8'));
-for (var i = 0; i < setting_buttons.length; i++) {
-    var settingbutton = setting_buttons[i];
-    var name = settingbutton.attributes['id'].value;
 
-    /* Set up buttons according to settings.json file */
-    if (settings[i].settingname == name) {
-      settingbutton.checked = settings[i].settingstatus;
-    }
-
-    setupSetting(settingbutton);
+if (settings.ignoregroup) {
+  ignore_groups.checked = true;
+  reply_tags.disabled = true;
+  document.getElementById('tag-reply').style.color = "#e5e5e5";
+} else {
+  ignore_groups.checked = false;
+  reply_tags.checked = settings.replymentions;
 }
 
-function setupSetting(button) {
-  var settingname = button.attributes['id'].value;
-
-  settingbutton.addEventListener('click', function () {
-      var status = button.checked;
-      editSetting(settingname, status);
-    });
-}
-
-function editSetting(name, checked) {
-  for (var i=0; i<settings.length; i++) {
-      if (settings[i].settingname == name) {
-        settings[i].settingstatus = checked;
-        break;
-      }
+ignore_groups.addEventListener('click', function() {
+  if(ignore_groups.checked == true) {
+    reply_tags.checked = false;
+    reply_tags.disabled = true;
+    document.getElementById('tag-reply').style.color = "#e5e5e5";
+  } else {
+    reply_tags.disabled = false;
+    document.getElementById('tag-reply').style.color = "#424242";
   }
+
+  settings.ignoregroup = ignore_groups.checked;
   fs.writeFileSync('./app/resources/settings.json', JSON.stringify(settings));
-}
+})
 
-
-/* Get settings from other files */
-var methods = {
-	getsettingstatus: function(setting_name) {
-    for (var i=0; i<settings.length; i++) {
-        if (settings[i].settingname == setting_name) {
-          return settings[i].settingstatus;
-        }
-	  }
-  },
-  getWhitelist: function() {
-    return whitelist;
+reply_tags.addEventListener('click', function() {
+  if(reply_tags.checked == false) {
+    document.getElementById('ignore').style.color = "#424242";
   }
-};
-module.exports = methods;
+
+  settings.replymentions = reply_tags.checked;
+  fs.writeFileSync('./app/resources/settings.json', JSON.stringify(settings));
+})
 
 /* Save new auto-reply text */
 var save_reply = document.querySelector('div.tab-content button[name="save"]');
@@ -77,8 +53,8 @@ save_reply.addEventListener('click', function () {
 
 /* Search function for whitelist */
 var listItems = [];
-var list = document.getElementById('friends');
 var filter = document.getElementById('filter');
+
 /* Search function for filtering friends */
 filter.addEventListener('keyup', function(e) {
   /* Found on codepen.io @hmps modified slightly */
@@ -109,7 +85,7 @@ function constructWhitelist(friends) {
      var input = document.createElement('input');
      input.setAttribute('type','checkbox');
      input.setAttribute('id',friendID);
-     if (whitelist.indexOf(friendID) > -1) {
+     if(whitelist.friends.includes(friendID)) {
        input.setAttribute('checked', true);
      }
 
@@ -119,7 +95,7 @@ function constructWhitelist(friends) {
 
      document.getElementById('friends').appendChild(li).append(input,label);
   }
-  listItems = list.querySelectorAll('li');
+  listItems = document.getElementById('friends').querySelectorAll('li');
 }
 
 try {
@@ -138,14 +114,47 @@ try {
     });
   }
 
-  var save_whitelist = document.querySelector('div.whitelist button[name="save"]');
+  var input_friends = document.querySelectorAll('div.whitelist input[type="checkbox"]');
 
-  save_whitelist.addEventListener('click', function () {
-    fs.writeFileSync('./app/resources/whitelist.txt', ''); //Clear whitelist
-    whitelisted = document.querySelectorAll('div.whitelist input[type=checkbox]:checked');
-    for(var i=0; i < whitelisted.length; i++) {
-      var friendID = whitelisted[i].id;
+  for(var i=0; i < input_friends.length; i++) {
+    input_friends[i].addEventListener('change', editWhitelist);
+  }
 
-      fs.appendFileSync('./app/resources/whitelist.txt', '' + friendID + '\n');
+  function editWhitelist() {
+    if(this.checked) {
+      whitelist.friends.push(this.id);
+      fs.writeFileSync('./app/resources/whitelist.json', JSON.stringify(whitelist));
+    } else {
+      var index = whitelist.friends.indexOf(this.id);
+      whitelist.friends.splice(index, 1);
+      fs.writeFileSync('./app/resources/whitelist.json', JSON.stringify(whitelist));
     }
-  });
+  }
+
+/* Get settings from other files */
+var methods = {
+	getsettingstatus: function(setting_name) {
+    for (var i=0; i<settings.length; i++) {
+        if (settings[i].settingname == setting_name) {
+          return settings[i].settingstatus;
+        }
+	  }
+  },
+  getWhitelist: function() {
+    return whitelist;
+  },
+  setTime: function(st, et) {
+    var timeDiff = et - st;
+    timeDiff /= 1000;
+    statistics.totalhours = statistics.totalhours + timeDiff;
+    fs.writeFileSync('./app/resources/statistics.json', JSON.stringify(statistics));
+  },
+  setRepliedThreads: function(threads) {
+    statistics.totalreplies = statistics.totalreplies + threads;
+    fs.writeFileSync('./app/resources/statistics.json', JSON.stringify(statistics));
+  }
+};
+module.exports = methods;
+
+var number_send = document.getElementById('number-response').textContent = statistics.totalreplies;
+var hours_spend = document.getElementById('hours-spend').textContent = ((parseFloat(statistics.totalhours)) / 60 / 60).toFixed(2);

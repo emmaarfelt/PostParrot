@@ -1,1 +1,1 @@
-[{"settingname":"ignore-group-messages","settingstatus":true},{"settingname":"reply-groupchat-mentions","settingstatus":false}]
+{"ignoregroup":false,"replymentions":true}

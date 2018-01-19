@@ -44,12 +44,12 @@ input.tab-menu:checked + label.tab-menu {
 	background: #fff;
 	color: #444;
 	position: relative;
-	z-index: 6;
+	z-index: 3;
 }
 
 .tab-content {
     position: relative;
-    z-index: 5;
+    z-index: 2;
     background: #fff;
     padding: 25px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -59,8 +59,7 @@ input.tab-menu:checked + label.tab-menu {
 }
 
 .tab {
-    opacity: 0;
-    z-index: -100;
+    display: none;
     width: calc(100% - 50px);
     position:absolute;
 }
@@ -92,12 +91,11 @@ input.tab-menu:checked + label.tab-menu {
   color: #424242;
 }
 
-
 .settings-container input#tab-1:checked ~ .tab-content #enter-message,
 .settings-container input#tab-2:checked ~ .tab-content #group-message-settings,
-.settings-container input#tab-3:checked ~ .tab-content #whitelist-settings {
-    opacity: 1;
-    z-index: 100;
+.settings-container input#tab-3:checked ~ .tab-content #whitelist-settings,
+.settings-container input#tab-4:checked ~ .tab-content #statistics {
+    display: block;
 }
 
 input.visible {
@@ -254,11 +252,7 @@ input.visible {
     visibility: hidden;
 }
 
-.top button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100px;
-    float: right;
-    margin-top: 23px;
+/* Statistics */
+td.stat-number {
+  float:right;
 }
