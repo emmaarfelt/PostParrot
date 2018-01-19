@@ -9,21 +9,37 @@
     <link rel="stylesheet" href="css/login.css">
   </head>
   <body>
+
+    <div class="burger-menu">
+      <input type="checkbox" id="menu-toggle" class="menu-toggle"/>
+      <label id="trigger" for="menu-toggle"></label>
+      <label id="burger" for="menu-toggle"></label>
+      <ul id="menu">
+        <li><a href="#starter">Start</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Log Out</a></li>
+      </ul>
+    </div>
+
+
     <!--Settings Page-->
-    <div id="settings" class="pages" style="display:none;">
+    <div id="settings" class="pages">
       <div class="app-title">
         <h1 class="title">Settings</h1>
       </div>
-	<div class="settings-container">
-	    <input id="tab-1" class="tab-menu" type="radio" name="tab-group" checked="checked" />
-	    <label for="tab-1" class="tab-menu">Enter message</label>
+	    <div class="settings-container">
+    	    <input id="tab-1" class="tab-menu" type="radio" name="tab-group" />
+    	    <label for="tab-1" class="tab-menu">Enter message</label>
 
-	    <input id="tab-2" class="tab-menu" type="radio" name="tab-group" />
-	    <label for="tab-2" class="tab-menu">Group messages</label>
+    	    <input id="tab-2" class="tab-menu" type="radio" name="tab-group" />
+    	    <label for="tab-2" class="tab-menu">Group messages</label>
 
+    	    <input id="tab-3" class="tab-menu" type="radio" name="tab-group" />
+    	    <label for="tab-3" class="tab-menu">Whitelist</label>
 
-	    <input id="tab-3" class="tab-menu" type="radio" name="tab-group" />
-	    <label for="tab-3" class="tab-menu">Whitelist</label>
+          <input id="tab-4" class="tab-menu" type="radio" name="tab-group" checked="checked" />
+    	    <label for="tab-4" class="tab-menu">Statistics</label>
 
 	    <div class="tab-content">
 	        <div class="tab" id="enter-message">
@@ -35,7 +51,7 @@
 	        <div class="tab" id="group-message-settings">
             <table class="settings-table">
             <tr>
-              <td class="toggle-setting">Ignore group messages</td>
+              <td class="toggle-setting"><span id="ignore">Ignore group messages</span></td>
               <td class="toggle-button">
                 <div class="toggle-container">
                 <input type="checkbox" id="ignore-group-messages" checked/>
@@ -44,7 +60,7 @@
               </td>
             </tr>
             <tr>
-              <td class="toggle-setting">Auto-reply in groupchat when tagged</td>
+              <td class="toggle-setting"><span id="tag-reply">Auto-reply in groupchat when tagged</span></td>
               <td class="toggle-button">
                 <div class="toggle-container">
                 <input type="checkbox" id="reply-groupchat-mentions" />
@@ -52,15 +68,6 @@
                 </div>
               </td>
             </tr>
-            <!-- <tr>
-              <td class="toggle-setting"></td>
-              <td class="toggle-button">
-                <div class="toggle-container">
-                <input type="checkbox" id="switch3" />
-                <label for="switch3"></label>
-                </div>
-              </td>
-            </tr> -->
           </table>
 	        </div>
 
@@ -74,29 +81,41 @@
                 </ul>
               </div>
 	        </div>
+
+          <div class="tab" id="statistics">
+            <div class="statistics">
+            <table class="settings-table">
+            <tr>
+              <td class="stat">Number of responses send:</td>
+              <td class="stat-number"><span id="number-response" class="counter">0</span></td>
+            </tr>
+            <tr>
+              <td class="stat">Hours of freedom:</td>
+              <td class="stat-number"><span id="hours-spend" class="counter">0</span></td>
+            </tr>
+          </table>
+	        </div>
+        </div>
 	    </div>
 	</div>
-      </div>
+</div>
 
     <!--Starter page-->
-    <div id="starter" class="pages">
+    <div id="starter" class="pages" style="display:none;">
       <div class="app-title">
         <h1 class="title">Post Parrot</h1>
       </div>
-      <div class="parrots" style="display:none;">
+      <div class="parrots">
         <div class="parrot-container">
           <iframe src="resources/parrots/parrot1.html" scrolling="no"></iframe>
         </div>
+        <div class="setup-buttons">
+          <button name="stop-button">Stop</button>
+        </div>
       </div>
-      <div class="starter-page">
         <div class="big-button">
             <button name="starter-button">Start</button>
         </div>
-      </div>
-      <div class="setup-buttons">
-        <button name="starter-button">Settings</button>
-        <button name="starter-button">Stop</button>
-      </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

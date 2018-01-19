@@ -15,7 +15,7 @@ body {
 
 .app-title {
   width: 380px;
-  padding: 4% 0 0;
+  padding: 2% 0 0;
   margin: 0 auto;
 }
 
@@ -44,7 +44,130 @@ button {
   margin-top: 15px;
 }
 
-button:hover, button:active, button:focus {
+button:hover {
   background: #96dde1;
   color: #FFF;
+}
+
+
+/* Menu */
+@keyframes checked-anim {
+    50% {
+      border-bottom-right-radius: 0;
+    }
+    100% {
+        width: 310px;
+        height: 100%;
+        border-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: rgba(27,50,68,0.7);
+    }
+}
+@keyframes not-checked-anim {
+    0% {
+      width: 110px;
+      height: 110px;
+    }
+}
+
+.burger-menu li, a {
+    margin: 75px 0 -55px 0;
+    color: #3ddc97;
+    font: 24px "Roboto", sans-serif;
+    font-weight: 700;
+    line-height: 1.8;
+    text-decoration: none;
+    text-transform: none;
+    list-style: none;
+    outline: 0;
+    display: none;
+}
+
+.burger-menu li {
+    width: 230px;
+    text-indent: 56px;
+  }
+
+.burger-menu a:focus {
+    display: block;
+    color: #fff;
+    background-color: #3ddc97;
+    transition: all .2s;
+}
+
+.burger-menu a:hover {
+  display: block;
+  color: #fff;
+  background-color: #3ddc97;
+}
+
+#trigger, #burger, #burger:before, #burger:after {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background: #3ddc97;
+    width: 30px;
+    height: 5px;
+    transition: .2s ease;
+    cursor: pointer;
+    z-index: 5;
+}
+
+#trigger {
+    height: 25px;
+    background: none;
+}
+#burger:before {
+    content: " ";
+    top: 10px;
+    left: 0;
+}
+#burger:after {
+    content: " ";
+    top: 20px;
+    left: 0;
+}
+
+#menu-toggle:checked + #trigger + #burger {
+    top: 35px;
+    transform: rotate(180deg);
+    transition: transform .2s ease;
+}
+
+#menu-toggle:checked + #trigger + #burger:before {
+    width: 20px;
+    top: -2px;
+    left: 18px;
+    transform: rotate(45deg) translateX(-5px);
+    transition: transform .2s ease;
+}
+#menu-toggle:checked + #trigger + #burger:after {
+    width: 20px;
+    top: 2px;
+    left: 18px;
+    transform: rotate(-45deg) translateX(-5px);
+    transition: transform .2s ease;
+}
+
+#menu {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    background-color: #1b3244;
+    animation: not-checked-anim .2s both;
+    transition: .2s;
+    z-index: 4;
+    border-bottom-right-radius: 100%;
+}
+
+#menu-toggle:checked + #trigger + #burger + #menu {
+    animation: checked-anim .3s ease-out both;
+}
+
+#menu-toggle:checked + #trigger ~ #menu > li, a {
+    display: block;
+}
+
+.burger-menu [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    display: none;
 }
