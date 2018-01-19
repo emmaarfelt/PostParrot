@@ -17,7 +17,7 @@ let mainWindow = null;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 1200, height: 750, /*resizable: false*/})
 
   var appstate = fs.existsSync('./appstate.json');
   if(appstate) {
