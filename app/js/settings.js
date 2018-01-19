@@ -141,7 +141,7 @@ var methods = {
 	  }
   },
   getWhitelist: function() {
-    return whitelist;
+    return whitelist.friends;
   },
   setTime: function(st, et) {
     var timeDiff = et - st;
