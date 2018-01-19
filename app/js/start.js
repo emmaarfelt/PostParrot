@@ -38,7 +38,7 @@ if (reply == "") {reply = 'I\'m currently unavailable, and use PostParrot to aut
 function startReply() {
 
   startTime = new Date();
-  /* login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
+  login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return window.location.href = 'login.html';
 
     var ownUserID = api.getCurrentUserID();
@@ -78,7 +78,7 @@ function startReply() {
               }
           }
      } else {// Do nothing. Already replied  }
-   });*/
+   });
 
 
 
@@ -88,8 +88,8 @@ function startReply() {
      settings.setRepliedThreads(replied_threads.length);
      parrot_div.classList.remove('parrots-appear');
      start_replies.classList.remove('big-button-animation')
-     //return listening();
+     return listening();
    });
 
-  //});
+  });
 }
