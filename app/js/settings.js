@@ -5,16 +5,24 @@ const login = require("facebook-chat-api");
 var statistics = JSON.parse(fs.readFileSync('./app/resources/statistics.json', 'utf8'));
 var whitelist = JSON.parse(fs.readFileSync('./app/resources/whitelist.json', 'utf8'));
 var settings = JSON.parse(fs.readFileSync('./app/resources/settings.json', 'utf8'));
+var reply = fs.readFileSync('./app/resources/reply_text.txt', 'utf8');
+if (reply == "") {reply = 'I\'m currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call.'}
 
 
 /* Settings: Write new reply */
+document.getElementById('enter-message').querySelector('textarea[name="auto-reply-message"]').innerHTML = reply;
+
 var save_reply = document.querySelector('div.tab-content button[name="save"]');
-
 save_reply.addEventListener('click', function () {
-  var text = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
-
-  fs.writeFileSync('./app/resources/reply_text.txt', text);
-  console.log("Text updated");
+  reply = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
+  save_reply.classList.add('save-reply-animation');
+  save_reply.innerHTML = 'Saved!';
+  fs.writeFileSync('./app/resources/reply_text.txt', reply);
+  setTimeout(
+    function() {
+      save_reply.classList.remove('save-reply-animation');
+      save_reply.innerHTML = 'save';
+    }, 2000);
 });
 
 /* Settings: Group messages */
@@ -141,6 +149,9 @@ var methods = {
           return settings[i].settingstatus;
         }
 	  }
+  },
+  getReplyText: function() {
+    return reply;
   },
   getWhitelist: function() {
     return whitelist.friends;

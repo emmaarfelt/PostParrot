@@ -33,18 +33,9 @@ start_replies.addEventListener('click', function () {
 });
 
 /* Check if reply file is empty */
-var reply = fs.readFileSync('./app/resources/reply_text.txt', 'utf8');
-if (reply == "") {reply = 'I\'m currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call.'}
-
-
-function stopReplying() {
-
-}
-
-
 function startReply() {
-
   startTime = new Date();
+  var reply = settings.getReplyText();
   login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return window.location.href = 'login.html';
 

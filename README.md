@@ -1,6 +1,7 @@
 # PostParrot
 
-My first attempt at a desktop application. PostParrot can auto-reply to messages on Facebook. Work in progess.
+My first attempt at a desktop application using Electron. Written in JavaScript, and apparently a lot of CSS according to GitHub.
+PostParrot can auto-reply to messages on Facebook. You can customise reply text, create a whitelist and setup group message settings. The service runs as long as you let it and keep your laptop turned on (sleep is OK).
 
 ## Screenshots
 ![alt text](http://emmaarfelt.com/img/pp1.png)
@@ -9,7 +10,9 @@ My first attempt at a desktop application. PostParrot can auto-reply to messages
 
 ## Installing
 
-### License
+Download the latest copy under releases.
+
+## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
