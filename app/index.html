@@ -17,8 +17,8 @@
       <ul id="menu">
         <li><a href="#starter">Start</a></li>
         <li><a href="#settings">Settings</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Log Out</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="login.html" id="logout">Log Out</a></li>
       </ul>
     </div>
 
@@ -29,7 +29,7 @@
         <h1 class="title">Settings</h1>
       </div>
 	    <div class="settings-container">
-    	    <input id="tab-1" class="tab-menu" type="radio" name="tab-group" />
+    	    <input id="tab-1" class="tab-menu" type="radio" name="tab-group" checked="checked" />
     	    <label for="tab-1" class="tab-menu">Enter message</label>
 
     	    <input id="tab-2" class="tab-menu" type="radio" name="tab-group" />
@@ -38,13 +38,13 @@
     	    <input id="tab-3" class="tab-menu" type="radio" name="tab-group" />
     	    <label for="tab-3" class="tab-menu">Whitelist</label>
 
-          <input id="tab-4" class="tab-menu" type="radio" name="tab-group" checked="checked" />
+          <input id="tab-4" class="tab-menu" type="radio" name="tab-group" />
     	    <label for="tab-4" class="tab-menu">Statistics</label>
 
 	    <div class="tab-content">
 	        <div class="tab" id="enter-message">
             <p>Maximum characters: 140</p>
-            <textarea name="auto-reply-message" rows="4" maxlength="140" placeholder="I'm currently out of office. Will get back to you after Christmas."></textarea></br>
+            <textarea name="auto-reply-message" rows="4" maxlength="140" placeholder="I'm currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call."></textarea></br>
             <button name="save">save</button>
 	        </div>
 
@@ -117,7 +117,11 @@
         </div>
     </div>
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <!-- About page -->
+    <div id="about" class="pages">
+      <h1>Coming soon...</h1>
+    </div>
+
     <script>
       //require('./renderer.js')
       require('./js/start.js')

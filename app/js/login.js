@@ -3,9 +3,14 @@ const login = require("facebook-chat-api");
 
 
 /* Getting credentials and saving in credentials.json for login */
-var submit_cred = document.querySelector('div.form button[name="submit"]');
+var submit_cred = document.getElementById('login-button');
+var load_spinner = document.getElementById('load-spinner');
 
 submit_cred.addEventListener('click', function () {
+  submit_cred.classList.add('shrink-login-animation');
+  submit_cred.innerHTML = "";
+  load_spinner.classList.add('loader-appear');
+
   var username = document.querySelector('div.form input[id="name"]').value;
   var password = document.querySelector('div.form input[id="password"]').value;
 
@@ -25,6 +30,9 @@ function FBlogin(cred) {
               //todo: two-factor authentication
               break;
           case 'Wrong username/password.':
+            submit_cred.classList.remove('shrink-login-animation');
+            submit_cred.innerHTML = "login";
+            load_spinner.classList.remove('loader-appear');
             document.getElementById('login-status').textContent = 'Wrong username/password! Try again.';
           default:
               console.error(err);

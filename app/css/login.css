@@ -46,3 +46,52 @@
   display: block;
   clear: both;
 }
+
+.submit-button {
+    position: relative;
+}
+
+.shrink-login-animation {
+  opacity: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.login-button {
+  position:relative;
+  transition: all .5s ease-in-out, opacity 0.1s linear .45s, border-radius 0.3s linear .2s;
+}
+
+.loader {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 10px;
+  left: calc(50% - 25px);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-top: 5px solid rgba(63, 193, 201, 0.2);
+  border-right: 5px solid rgba(63, 193, 201, 0.2);
+  border-bottom: 5px solid rgba(63, 193, 201, 0.2);
+  border-left: 5px solid #3fc1c9;
+  animation: lollipop 1.1s infinite linear;
+  transition: opacity 0.1s ease .4s, visibility 0.1s ease .4s;
+}
+
+.loader-appear {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes lollipop {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
