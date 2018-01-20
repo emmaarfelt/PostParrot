@@ -4,10 +4,22 @@ const login = require("facebook-chat-api");
 
 var statistics = JSON.parse(fs.readFileSync('./app/resources/statistics.json', 'utf8'));
 var whitelist = JSON.parse(fs.readFileSync('./app/resources/whitelist.json', 'utf8'));
+var settings = JSON.parse(fs.readFileSync('./app/resources/settings.json', 'utf8'));
 
+
+/* Settings: Write new reply */
+var save_reply = document.querySelector('div.tab-content button[name="save"]');
+
+save_reply.addEventListener('click', function () {
+  var text = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
+
+  fs.writeFileSync('./app/resources/reply_text.txt', text);
+  console.log("Text updated");
+});
+
+/* Settings: Group messages */
 var ignore_groups = document.getElementById('ignore-group-messages');
 var reply_tags = document.getElementById('reply-groupchat-mentions');
-var settings = JSON.parse(fs.readFileSync('./app/resources/settings.json', 'utf8'));
 
 if (settings.ignoregroup) {
   ignore_groups.checked = true;
@@ -41,17 +53,7 @@ reply_tags.addEventListener('click', function() {
   fs.writeFileSync('./app/resources/settings.json', JSON.stringify(settings));
 })
 
-/* Save new auto-reply text */
-var save_reply = document.querySelector('div.tab-content button[name="save"]');
-
-save_reply.addEventListener('click', function () {
-  var text = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
-
-  fs.writeFileSync('./app/resources/reply_text.txt', text);
-  console.log("Text updated");
-});
-
-/* Search function for whitelist */
+/* Settings: Edit Whitelist */
 var listItems = [];
 var filter = document.getElementById('filter');
 
@@ -156,5 +158,6 @@ var methods = {
 };
 module.exports = methods;
 
+/* Settings: Statistics */
 var number_send = document.getElementById('number-response').textContent = statistics.totalreplies;
 var hours_spend = document.getElementById('hours-spend').textContent = ((parseFloat(statistics.totalhours)) / 60 / 60).toFixed(2);

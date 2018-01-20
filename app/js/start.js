@@ -9,6 +9,7 @@ var IGNORE_GROUPCHAT = settings.getsettingstatus('ignore-group-messages');
 var REPLY_MENTIONS = settings.getsettingstatus('reply-groupchat-mentions');
 var whitelist = settings.getWhitelist();
 
+var log_out = document.getElementById('logout');
 var start_replies = document.querySelector('div.big-button');
 var stop_replies = document.querySelector('div.setup-buttons button[name="stop-button"]');
 var parrot_div = document.querySelector('div.parrots');
@@ -35,6 +36,12 @@ start_replies.addEventListener('click', function () {
 var reply = fs.readFileSync('./app/resources/reply_text.txt', 'utf8');
 if (reply == "") {reply = 'I\'m currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call.'}
 
+
+function stopReplying() {
+
+}
+
+
 function startReply() {
 
   startTime = new Date();
@@ -54,7 +61,7 @@ function startReply() {
                  api.sendMessage("<autoreplies are enabled for this thread>", message.threadID);
              }
            } else {
-              if(!whitelist.contains(message.senderID)) {
+              if(!whitelist.includes(message.senderID)) {
                 if(!IGNORE_GROUPCHAT) {
                     api.sendMessage(reply, message.threadID);
                     replied_threads.add(message.threadID);
@@ -77,9 +84,8 @@ function startReply() {
                 //  Nothing person is whitelisted. todo: create warning
               }
           }
-     } else {// Do nothing. Already replied  }
+     } else {/* Already replied */}
    });
-
 
 
    stop_replies.addEventListener('click', function () {
@@ -91,5 +97,11 @@ function startReply() {
      return listening();
    });
 
-  });
+   log_out.addEventListener('click', function() {
+     console.log('logout');
+     api.logout();
+     return listening();
+   });
+
+ });
 }
