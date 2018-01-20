@@ -37,6 +37,9 @@ node_modules/
 jspm_packages/
 appstate.json
 app/resources/friendlist.json
+app/resources/statistics.json
+app/resources/whitelist.json
+app/resources/reply_text.txt
 
 # Typescript v1 declaration files
 typings/
