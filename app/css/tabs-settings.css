@@ -101,6 +101,20 @@ input.visible {
   visibility: visible !important;
 }
 
+.save-reply-button {
+  transition: all 0.5s ease;
+}
+
+.save-reply-animation {
+  font-weight: bold;
+  background-color: #3ddc97;
+}
+
+.save-reply-animation:hover {
+  font-weight: bold;
+  background-color: #3ddc97;
+}
+
 /* Toggle checkbox styles */
 .toggle-container {
   float:right;

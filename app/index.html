@@ -44,8 +44,8 @@
 	    <div class="tab-content">
 	        <div class="tab" id="enter-message">
             <p>Maximum characters: 140</p>
-            <textarea name="auto-reply-message" rows="4" maxlength="140" placeholder="I'm currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call."></textarea></br>
-            <button name="save">save</button>
+            <textarea name="auto-reply-message" rows="4" maxlength="140"></textarea></br>
+            <button name="save" class="save-reply-button">save</button>
 	        </div>
 
 	        <div class="tab" id="group-message-settings">
@@ -118,12 +118,17 @@
     </div>
 
     <!-- About page -->
-    <div id="about" class="pages">
-      <h1>Coming soon...</h1>
+    <div id="about" class="pages" style="display:none;">
+      <div class="app-title">
+        <h1 class="title">About</h1>
+      </div>
+      <div class="form">
+        <div class="message" id="login-status"></div>
+        Coming soon...
+      </div>
     </div>
 
     <script>
-      //require('./renderer.js')
       require('./js/start.js')
       require('./js/settings.js')
       require('./js/navigation.js')

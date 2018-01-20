@@ -15,7 +15,6 @@ body {
 
 .app-title {
   width: 380px;
-  padding: 2% 0 0;
   margin: 0 auto;
 }
 
@@ -55,7 +54,7 @@ button:hover {
       border-bottom-right-radius: 0;
     }
     100% {
-        width: 310px;
+        width: 270px;
         height: 100%;
         border-radius: 0;
         border-bottom-right-radius: 0;
