@@ -29,23 +29,20 @@ save_reply.addEventListener('click', function () {
 var ignore_groups = document.getElementById('ignore-group-messages');
 var reply_tags = document.getElementById('reply-groupchat-mentions');
 
-if (settings.ignoregroup) {
-  ignore_groups.checked = true;
-  reply_tags.disabled = true;
+ignore_groups.checked = settings.ignoregroup;
+if(!ignore_groups.checked) {
   document.getElementById('tag-reply').style.color = "#e5e5e5";
-} else {
-  ignore_groups.checked = false;
-  reply_tags.checked = settings.replymentions;
 }
+reply_tags.checked = settings.replymentions;
 
 ignore_groups.addEventListener('click', function() {
   if(ignore_groups.checked == true) {
-    reply_tags.checked = false;
-    reply_tags.disabled = true;
-    document.getElementById('tag-reply').style.color = "#e5e5e5";
-  } else {
     reply_tags.disabled = false;
     document.getElementById('tag-reply').style.color = "#424242";
+  } else {
+    document.getElementById('tag-reply').style.color = "#e5e5e5";
+    reply_tags.checked = false;
+    reply_tags.disabled = true;
   }
 
   settings.ignoregroup = ignore_groups.checked;
@@ -53,13 +50,10 @@ ignore_groups.addEventListener('click', function() {
 })
 
 reply_tags.addEventListener('click', function() {
-  if(reply_tags.checked == false) {
-    document.getElementById('ignore').style.color = "#424242";
-  }
-
   settings.replymentions = reply_tags.checked;
   fs.writeFileSync('./app/resources/settings.json', JSON.stringify(settings));
 })
+
 
 /* Settings: Edit Whitelist */
 var listItems = [];
