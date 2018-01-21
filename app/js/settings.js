@@ -56,26 +56,7 @@ reply_tags.addEventListener('click', function() {
 
 
 /* Settings: Edit Whitelist */
-var listItems = [];
-var filter = document.getElementById('filter');
-
-/* Search function for filtering friends */
-filter.addEventListener('keyup', function(e) {
-  /* Found on codepen.io @hmps modified slightly */
-  var val = new RegExp(e.target.value, 'gi');
-  for(var i=0; i<listItems.length; i++) {
-    if(e.target.value.length > 0) {
-      var text = listItems[i].querySelector("label").innerHTML;
-      if( !text.match(val)) {
-        listItems[i].classList.add('is-hidden');
-      } else {
-        listItems[i].classList.remove('is-hidden');
-      }
-    } else {
-      listItems[i].classList.remove('is-hidden');
-    }
-  }
-});
+var listItems;
 
 /* Construct whitelist */
 function constructWhitelist(friends) {
@@ -105,35 +86,61 @@ function constructWhitelist(friends) {
 try {
     var friendlist = JSON.parse(fs.readFileSync('./app/resources/friendlist.json', 'utf8'));
     constructWhitelist(friendlist);
-  } catch (e) {
-    login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
-      if(err) return console.error(err);
+} catch (e) {
+  login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
+    if(err) return console.error(err);
 
-      api.getFriendsList((err, data) => {
-            if(err) return console.error(err);
+    api.getFriendsList((err, data) => {
+          if(err) return console.error(err);
 
-            constructWhitelist(data);
-            fs.writeFile('./app/resources/friendlist.json', JSON.stringify(data));
-        });
-    });
-  }
+          constructWhitelist(data);
+          fs.writeFile('./app/resources/friendlist.json', JSON.stringify(data));
+      });
+  });
+}
 
-  var input_friends = document.querySelectorAll('div.whitelist input[type="checkbox"]');
+var filter = document.getElementById('filter');
 
-  for(var i=0; i < input_friends.length; i++) {
-    input_friends[i].addEventListener('change', editWhitelist);
-  }
-
-  function editWhitelist() {
-    if(this.checked) {
-      whitelist.friends.push(this.id);
-      fs.writeFileSync('./app/resources/whitelist.json', JSON.stringify(whitelist));
+/* Search function for filtering friends */
+filter.addEventListener('keyup', function(e) {
+  /* Found on codepen.io @hmps modified slightly */
+  var val = new RegExp(e.target.value, 'gi');
+  for(var i=0; i<listItems.length; i++) {
+    if(e.target.value.length > 0) {
+      var text = listItems[i].querySelector("label").innerHTML;
+      if( !text.match(val)) {
+        listItems[i].classList.add('is-hidden');
+      } else {
+        listItems[i].classList.remove('is-hidden');
+      }
     } else {
-      var index = whitelist.friends.indexOf(this.id);
-      whitelist.friends.splice(index, 1);
-      fs.writeFileSync('./app/resources/whitelist.json', JSON.stringify(whitelist));
+      listItems[i].classList.remove('is-hidden');
     }
   }
+});
+
+/* Add eventlistener to each friend in list */
+var input_friends = document.querySelectorAll('div.whitelist input[type="checkbox"]');
+for(var i=0; i < input_friends.length; i++) {
+  input_friends[i].addEventListener('change', editWhitelist);
+}
+
+function editWhitelist() {
+  if(this.checked) {
+    whitelist.friends.push(this.id);
+    fs.writeFileSync('./app/resources/whitelist.json', JSON.stringify(whitelist));
+  } else {
+    var index = whitelist.friends.indexOf(this.id);
+    whitelist.friends.splice(index, 1);
+    fs.writeFileSync('./app/resources/whitelist.json', JSON.stringify(whitelist));
+  }
+}
+
+
+/* Settings: Statistics */
+var number_send = document.getElementById('number-response').textContent = statistics.totalreplies;
+var hours_spend = document.getElementById('hours-spend').textContent = ((parseFloat(statistics.totalhours)) / 60 / 60).toFixed(2);
+
 
 /* Get settings from other files */
 var methods = {
@@ -162,7 +169,3 @@ var methods = {
   }
 };
 module.exports = methods;
-
-/* Settings: Statistics */
-var number_send = document.getElementById('number-response').textContent = statistics.totalreplies;
-var hours_spend = document.getElementById('hours-spend').textContent = ((parseFloat(statistics.totalhours)) / 60 / 60).toFixed(2);

@@ -39,57 +39,52 @@ function startReply() {
   login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return window.location.href = 'login.html';
 
+    api.setOptions({
+       logLevel: "silent"
+    });
+
     var ownUserID = api.getCurrentUserID();
 
     var listening = api.listen((err, message) => {
       if(!replied_threads.contains(message.threadID)) {
-           if (message.senderID == ownUserID) {
-             // This message was sent by you!
-             if (message.body == "/stop") {
-                 api.sendMessage("<autoreplies were already disabled for this thread>", message.threadID);
-             }
-             if (message.body == "/resume") {
-                 api.sendMessage("<autoreplies are enabled for this thread>", message.threadID);
-             }
-           } else {
-              if(!whitelist.includes(message.senderID)) {
-                if(!IGNORE_GROUPCHAT) {
-                    api.sendMessage(reply, message.threadID);
-                    replied_threads.add(message.threadID);
-                } else {
-                  if(REPLY_MENTIONS) {
-                    var mentions = message.mentions;
-                    if(!mentions == null) {
-                      if(mentions.contains(ownUserID)) {
-                        api.sendMessage(reply, message.threadID);
-                        replied_threads.add(message.threadID);
-                      }
-                    }
-                  } else {
-                    // Do not reply in group chats, no reply mentions and not a whitelist person
-                    api.sendMessage(reply, message.threadID);
-                    replied_threads.add(message.threadID);
-                  }
+        if(!message.isGroup) {
+          api.sendMessage(reply, message.threadID);
+          replied_threads.add(message.threadID);
+        } else {
+          if(IGNORE_GROUPCHAT) {
+            if(REPLY_MENTIONS) {
+              var mentions = message.mentions;
+              if(!mentions == null) {
+                if(mentions.contains(ownUserID)) {
+                  api.sendMessage(reply, message.threadID);
+                  replied_threads.add(message.threadID);
                 }
-              } else {
-                //  Nothing person is whitelisted. todo: create warning
               }
+            } else {
+              /* Do nothing. Ignoring all group messages */
+            }
+          } else {
+            /* Replying to all messages including group chats */
+            api.sendMessage(reply, message.threadID);
+            replied_threads.add(message.threadID);
           }
-     } else {/* Already replied */}
+        }
+      } else {
+        /* Already replied in this thread */
+      }
    });
-
 
    stop_replies.addEventListener('click', function () {
      endTime = new Date();
      settings.setTime(startTime,endTime);
      settings.setRepliedThreads(replied_threads.length);
      parrot_div.classList.remove('parrots-appear');
-     start_replies.classList.remove('big-button-animation')
+     start_replies.classList.remove('big-button-animation');
      return listening();
    });
 
    log_out.addEventListener('click', function() {
-     console.log('logout');
+     fs.writeFileSync('./appstate.json', ''); //Clear appState-file
      api.logout();
      return listening();
    });

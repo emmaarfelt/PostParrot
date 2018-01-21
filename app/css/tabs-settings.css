@@ -263,7 +263,9 @@ input.visible {
     padding: 0;
     border: none;
     visibility: hidden;
+    opacity:0;
 }
+
 
 /* Statistics */
 td.stat-number {
