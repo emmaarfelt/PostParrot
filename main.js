@@ -1,5 +1,3 @@
-'use strict';
-
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -9,7 +7,9 @@ const BrowserWindow = electron.BrowserWindow
 const fs = require("fs")
 const path = require('path')
 const url = require('url')
+
 const Menu = electron.Menu;
+const appName = app.getName();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -48,6 +48,44 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  const template = [
+	{
+		label: appName,
+    submenu: [
+      {
+				role: 'about'
+      },
+      {
+				role: 'quit'
+      }
+    ]
+  },
+  {
+    role: 'window',
+    submenu: [
+      {
+        role: 'minimize'
+      },
+      {
+        role: 'close'
+      }
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click () { require('electron').shell.openExternal('https://github.com/emmaarfelt/PostParrot') }
+      }
+    ]
+  }
+]
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+
 }
 
 // This method will be called when Electron has finished

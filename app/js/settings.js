@@ -13,6 +13,7 @@ if (reply == "") {reply = 'I\'m currently unavailable, and use PostParrot to aut
 document.getElementById('enter-message').querySelector('textarea[name="auto-reply-message"]').innerHTML = reply;
 
 var save_reply = document.querySelector('div.tab-content button[name="save"]');
+
 save_reply.addEventListener('click', function () {
   reply = document.querySelector('div.tab-content textarea[name="auto-reply-message"]').value;
   save_reply.classList.add('save-reply-animation');

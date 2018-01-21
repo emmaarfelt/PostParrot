@@ -32,6 +32,18 @@ start_replies.addEventListener('click', function () {
     }, 3000);
 });
 
+
+/* Notify when message from whitelist friend received */
+function whitelist_notify(message) {
+  let notification = new Notification('Message from whitelist', {
+    body: message,
+    silent: true
+  })
+  var audio = new Audio('../assets/pip.mp3');
+  audio.play();
+}
+
+
 /* Check if reply file is empty */
 function startReply() {
   startTime = new Date();
@@ -46,31 +58,35 @@ function startReply() {
     var ownUserID = api.getCurrentUserID();
 
     var listening = api.listen((err, message) => {
-      if(!replied_threads.contains(message.threadID)) {
-        if(!message.isGroup) {
-          api.sendMessage(reply, message.threadID);
-          replied_threads.add(message.threadID);
-        } else {
-          if(IGNORE_GROUPCHAT) {
-            if(REPLY_MENTIONS) {
-              var mentions = message.mentions;
-              if(!mentions == null) {
-                if(mentions.contains(ownUserID)) {
-                  api.sendMessage(reply, message.threadID);
-                  replied_threads.add(message.threadID);
-                }
-              }
-            } else {
-              /* Do nothing. Ignoring all group messages */
-            }
-          } else {
-            /* Replying to all messages including group chats */
+      if(!whitelist.contains(message.senderID)) {
+        if(!replied_threads.contains(message.threadID)) {
+          if(!message.isGroup) {
             api.sendMessage(reply, message.threadID);
             replied_threads.add(message.threadID);
+          } else {
+            if(IGNORE_GROUPCHAT) {
+              if(REPLY_MENTIONS) {
+                var mentions = message.mentions;
+                if(!mentions == null) {
+                  if(mentions.contains(ownUserID)) {
+                    api.sendMessage(reply, message.threadID);
+                    replied_threads.add(message.threadID);
+                  }
+                }
+              } else {
+                /* Do nothing. Ignoring all group messages */
+              }
+            } else {
+              /* Replying to all messages including group chats */
+              api.sendMessage(reply, message.threadID);
+              replied_threads.add(message.threadID);
+            }
           }
+        } else {
+          /* Already replied in this thread */
         }
       } else {
-        /* Already replied in this thread */
+        whitelist_notify(message.body)
       }
    });
 
