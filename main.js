@@ -17,7 +17,13 @@ let mainWindow = null;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 930, height: 670, resizable: false})
+  mainWindow = new BrowserWindow({
+    width: 930,
+    height: 670,
+    resizable: false,
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
+    backgroundColor: '#1b3244'
+  })
 
   var appstate = fs.existsSync('./appstate.json');
   if(appstate) {

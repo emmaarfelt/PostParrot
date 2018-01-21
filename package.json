@@ -1,5 +1,5 @@
 {
-  "name": "MessageMule",
+  "name": "PostParrot",
   "version": "0.1.0",
   "description": "Autoreply for Messenger",
   "main": "main.js",
