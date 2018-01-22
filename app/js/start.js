@@ -1,6 +1,10 @@
 const fs = require("fs");
 const login = require("facebook-chat-api");
 const ArrayList = require ("arraylist");
+const path = require('path')
+const {app} = require('electron').remote;
+var appDataPath = path.join(app.getPath('appData'), 'appState.json');
+
 var replied_threads = new ArrayList;
 var startTime, endTime;
 
@@ -48,7 +52,7 @@ function whitelist_notify(message) {
 function startReply() {
   startTime = new Date();
   var reply = settings.getReplyText();
-  login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
+  login({appState: JSON.parse(fs.readFileSync(appDataPath, 'utf8'))}, (err, api) => {
     if(err) return window.location.href = 'login.html';
 
     api.setOptions({
@@ -100,7 +104,7 @@ function startReply() {
    });
 
    log_out.addEventListener('click', function() {
-     fs.writeFileSync('./appstate.json', ''); //Clear appState-file
+     fs.writeFileSync(appDataPath, ''); //Clear appState-file
      api.logout();
      return listening();
    });
