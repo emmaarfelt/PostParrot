@@ -16,7 +16,7 @@ Download the latest copy on the [Releases page](https://github.com/emmaarfelt/Po
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License. 
 
 ### Acknowledgments
 * A lot of lovely parrots where found at [codepen](https://codepen.io).
