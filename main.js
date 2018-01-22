@@ -49,7 +49,7 @@ function createWindow () {
     mainWindow = null
   })
 
-  /*const template = [
+  const template = [
 	{
 		label: appName,
     submenu: [
@@ -59,6 +59,19 @@ function createWindow () {
       {
 				role: 'quit'
       }
+    ]
+  },
+  {
+    label: 'Edit',
+    submenu: [
+      {role: 'undo'},
+      {role: 'redo'},
+      {type: 'separator'},
+      {role: 'cut'},
+      {role: 'copy'},
+      {role: 'paste'},
+      {role: 'delete'},
+      {role: 'selectall'}
     ]
   },
   {
@@ -85,7 +98,7 @@ function createWindow () {
 ]
 
   const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)*/
+  Menu.setApplicationMenu(menu)
 
 }
 
