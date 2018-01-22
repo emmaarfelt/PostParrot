@@ -49,7 +49,7 @@ function createWindow () {
     mainWindow = null
   })
 
-  const template = [
+  /*const template = [
 	{
 		label: appName,
     submenu: [
@@ -67,6 +67,7 @@ function createWindow () {
       {
         role: 'minimize'
       },
+      {role: 'toggledevtools'},
       {
         role: 'close'
       }
@@ -84,7 +85,7 @@ function createWindow () {
 ]
 
   const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  Menu.setApplicationMenu(menu)*/
 
 }
 

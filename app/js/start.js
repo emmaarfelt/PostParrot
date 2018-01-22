@@ -9,8 +9,8 @@ var replied_threads = new ArrayList;
 var startTime, endTime;
 
 const settings = require('./settings.js');
-var IGNORE_GROUPCHAT = settings.getsettingstatus('ignore-group-messages');
-var REPLY_MENTIONS = settings.getsettingstatus('reply-groupchat-mentions');
+var IGNORE_GROUPCHAT = settings.getsettingstatus('ignoregroup');
+var REPLY_MENTIONS = settings.getsettingstatus('replymentions');
 var whitelist = settings.getWhitelist();
 
 var log_out = document.getElementById('logout');
@@ -62,35 +62,34 @@ function startReply() {
     var ownUserID = api.getCurrentUserID();
 
     var listening = api.listen((err, message) => {
-      if(!whitelist.contains(message.senderID)) {
-        if(!replied_threads.contains(message.threadID)) {
-          if(!message.isGroup) {
+      if(err) return console.error(err);
+      if(!message.isGroup) {
+        if(!whitelist.friends.includes(message.senderID)) {
+          if(!replied_threads.contains(message.threadID)) {
             api.sendMessage(reply, message.threadID);
             replied_threads.add(message.threadID);
-          } else {
-            if(IGNORE_GROUPCHAT) {
-              if(REPLY_MENTIONS) {
-                var mentions = message.mentions;
-                if(!mentions == null) {
-                  if(mentions.contains(ownUserID)) {
-                    api.sendMessage(reply, message.threadID);
-                    replied_threads.add(message.threadID);
-                  }
+          } else {  /* Already replied in this thread */ }
+        } else { whitelist_notify(message.body) }
+      } else {
+          if(IGNORE_GROUPCHAT) {
+            if(REPLY_MENTIONS) {
+              var mentions = message.mentions;
+              if(!mentions == null) {
+                if(mentions.contains(ownUserID)) {
+                  api.sendMessage(reply, message.threadID);
+                  replied_threads.add(message.threadID);
                 }
-              } else {
-                /* Do nothing. Ignoring all group messages */
               }
             } else {
-              /* Replying to all messages including group chats */
-              api.sendMessage(reply, message.threadID);
-              replied_threads.add(message.threadID);
+              console.log("Do nothing. Ignoring all group messages with no tag/mention");
+              /* Do nothing. Ignoring all group messages */
             }
+          } else {
+            console.log("Replying to all messages including group chats");
+            /* Replying to all messages including group chats */
+            api.sendMessage(reply, message.threadID);
+            replied_threads.add(message.threadID);
           }
-        } else {
-          /* Already replied in this thread */
-        }
-      } else {
-        whitelist_notify(message.body)
       }
    });
 

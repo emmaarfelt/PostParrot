@@ -152,11 +152,13 @@ var hours_spend = document.getElementById('hours-spend').textContent = ((parseFl
 /* Get settings from other files */
 var methods = {
 	getsettingstatus: function(setting_name) {
-    for (var i=0; i<settings.length; i++) {
-        if (settings[i].settingname == setting_name) {
-          return settings[i].settingstatus;
-        }
-	  }
+    switch (setting_name) {
+      case 'ignoregroup':
+        return settings.ignoregroup;
+        break;
+      case 'replymentions':
+        return settings.replymentions;
+    }
   },
   getReplyText: function() {
     return reply;
