@@ -12,7 +12,7 @@ PostParrot can auto-reply to messages on Facebook. You can customise reply text,
 
 ## Installing
 
-Download the latest copy under releases. Available for macOS and Windows.
+Download the latest copy on the [Releases page](https://github.com/emmaarfelt/PostParrot/releases). Available for MacOS and Windows.
 
 ## License
 
