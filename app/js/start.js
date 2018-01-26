@@ -1,10 +1,7 @@
 const fs = require("fs");
 const login = require("facebook-chat-api");
 const ArrayList = require ("arraylist");
-const path = require('path')
-const {app} = require('electron').remote;
-var appDataPath = path.join(app.getPath('appData'), 'appState.json');
-
+const loginstore = require('./state-storage.js');
 var replied_threads = new ArrayList;
 var startTime, endTime;
 
@@ -14,8 +11,13 @@ var REPLY_MENTIONS = settings.getsettingstatus('replymentions');
 var whitelist = settings.getWhitelist();
 
 var log_out = document.getElementById('logout');
+log_out.addEventListener('click', stopReplies);
+
 var start_replies = document.querySelector('div.big-button');
+
 var stop_replies = document.querySelector('div.setup-buttons button[name="stop-button"]');
+stop_replies.addEventListener('click', stopReplies);
+
 var parrot_div = document.querySelector('div.parrots');
 var parrot_container = document.querySelector('div.parrot-container');
 
@@ -47,17 +49,26 @@ function whitelist_notify(message) {
   audio.play();
 }
 
+function stopReplies() {
+  endTime = new Date();
+  settings.setTime(startTime,endTime);
+  settings.setRepliedThreads(replied_threads.length);
+  parrot_div.classList.remove('parrots-appear');
+  start_replies.classList.remove('big-button-animation');
+}
 
 /* Check if reply file is empty */
 function startReply() {
   startTime = new Date();
   var reply = settings.getReplyText();
-  login({appState: JSON.parse(fs.readFileSync(appDataPath, 'utf8'))}, (err, api) => {
+  login({appState: loginstore.get('appState')}, (err, api) => {
     if(err) return window.location.href = 'login.html';
+
 
     api.setOptions({
        logLevel: "silent"
     });
+
 
     var ownUserID = api.getCurrentUserID();
 
@@ -81,11 +92,9 @@ function startReply() {
                 }
               }
             } else {
-              console.log("Do nothing. Ignoring all group messages with no tag/mention");
               /* Do nothing. Ignoring all group messages */
             }
           } else {
-            console.log("Replying to all messages including group chats");
             /* Replying to all messages including group chats */
             api.sendMessage(reply, message.threadID);
             replied_threads.add(message.threadID);
@@ -94,19 +103,19 @@ function startReply() {
    });
 
    stop_replies.addEventListener('click', function () {
-     endTime = new Date();
-     settings.setTime(startTime,endTime);
-     settings.setRepliedThreads(replied_threads.length);
-     parrot_div.classList.remove('parrots-appear');
-     start_replies.classList.remove('big-button-animation');
      return listening();
    });
 
-   log_out.addEventListener('click', function() {
-     fs.writeFileSync(appDataPath, ''); //Clear appState-file
+   log_out.addEventListener('click', func, false);
+   function func(event) {
+     if ( event.preventDefault ) event.preventDefault();
+     event.returnValue = false;
+     console.log('logging out');
+     loginstore.clear();
      api.logout();
+     window.location = this.href;
      return listening();
-   });
+   }
 
  });
 }

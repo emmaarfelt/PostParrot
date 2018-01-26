@@ -1,8 +1,7 @@
 const fs = require("fs");
 const login = require("facebook-chat-api");
-const path = require('path')
-const {app} = require('electron').remote;
-var appDataPath = path.join(app.getPath('appData'), 'appState.json');
+const storage = require('./state-storage.js');
+var loginstore = storage.getLoginstore();
 
 /* Getting credentials and saving in credentials.json for login */
 var submit_cred = document.getElementById('login-button');
@@ -42,8 +41,7 @@ function FBlogin(cred) {
       return;
     } else {
       //Login success. Save in AppState file.
-      fs.writeFileSync(appDataPath, JSON.stringify(api.getAppState()));
-      //fs.writeFileSync('./appstate.json', JSON.stringify(api.getAppState()));
+      loginstore.set('appState', api.getAppState());
       document.getElementById('login-status').textContent = '';
 
       //Switch page

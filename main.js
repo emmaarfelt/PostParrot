@@ -20,12 +20,12 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 930,
     height: 670,
-    resizable: false,
+    //resizable: false,
     icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
     backgroundColor: '#1b3244'
   })
 
-  var appstate = fs.existsSync('./appstate.json');
+  var appstate = fs.existsSync(path.join(app.getPath('appData'), '/PostParrot/login.json'));
   if(appstate) {
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
@@ -48,7 +48,7 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-
+  /*
   const template = [
 	{
 		label: appName,
@@ -98,7 +98,7 @@ function createWindow () {
 ]
 
   const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  Menu.setApplicationMenu(menu)*/
 
 }
 

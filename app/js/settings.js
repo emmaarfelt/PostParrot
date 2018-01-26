@@ -1,6 +1,7 @@
 const fs = require("fs");
 const login = require("facebook-chat-api");
 const Store = require('electron-store');
+const loginstore = require('./state-storage.js').getLoginstore();
 const store = new Store({
   name: 'settings',
   defaults: {
@@ -91,19 +92,19 @@ function constructWhitelist(friends) {
   listItems = document.getElementById('friends').querySelectorAll('li');
 }
 
-
 if(store.has('friendlist')) {
   constructWhitelist(store.get('friendlist'));
 } else {
-  login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
+  login({appState: loginstore.get('appState')}, (err, api) => {
     if(err) return console.error(err);
 
     api.getFriendsList((err, data) => {
           if(err) return console.error(err);
-
-          constructWhitelist(data);
           store.set('friendlist', data);
+          constructWhitelist(data);
     });
+
+    api.logout();
   });
 }
 
