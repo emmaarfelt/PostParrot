@@ -1,7 +1,6 @@
 const fs = require("fs");
 const login = require("facebook-chat-api");
-const storage = require('./state-storage.js');
-var loginstore = storage.getLoginstore();
+const loginstore = require('./state-storage.js');
 
 /* Getting credentials and saving in credentials.json for login */
 var submit_cred = document.getElementById('login-button');

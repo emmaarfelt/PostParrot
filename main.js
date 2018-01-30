@@ -48,7 +48,7 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-  /*
+
   const template = [
 	{
 		label: appName,
@@ -98,7 +98,7 @@ function createWindow () {
 ]
 
   const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)*/
+  Menu.setApplicationMenu(menu)
 
 }
 

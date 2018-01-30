@@ -5,6 +5,8 @@ const loginstore = require('./state-storage.js');
 var replied_threads = new ArrayList;
 var startTime, endTime;
 
+var savedLogin = loginstore.get('appState');
+
 const settings = require('./settings.js');
 var IGNORE_GROUPCHAT = settings.getsettingstatus('ignoregroup');
 var REPLY_MENTIONS = settings.getsettingstatus('replymentions');
@@ -55,20 +57,19 @@ function stopReplies() {
   settings.setRepliedThreads(replied_threads.length);
   parrot_div.classList.remove('parrots-appear');
   start_replies.classList.remove('big-button-animation');
+  replied_threads.clear();
 }
 
 /* Check if reply file is empty */
 function startReply() {
   startTime = new Date();
   var reply = settings.getReplyText();
-  login({appState: loginstore.get('appState')}, (err, api) => {
-    if(err) return window.location.href = 'login.html';
-
+  login({appState: savedLogin}, (err, api) => {
+    if(err) return console.log(err); window.location.href = 'login.html';
 
     api.setOptions({
        logLevel: "silent"
     });
-
 
     var ownUserID = api.getCurrentUserID();
 
@@ -103,6 +104,7 @@ function startReply() {
    });
 
    stop_replies.addEventListener('click', function () {
+     api.logout();
      return listening();
    });
 
@@ -110,9 +112,8 @@ function startReply() {
    function func(event) {
      if ( event.preventDefault ) event.preventDefault();
      event.returnValue = false;
-     console.log('logging out');
-     loginstore.clear();
      api.logout();
+     loginstore.clear();
      window.location = this.href;
      return listening();
    }

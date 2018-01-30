@@ -1,6 +1,6 @@
 {
   "name": "PostParrot",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "Autoreply for Messenger",
   "author": "Emma Arfelt",
@@ -39,7 +39,7 @@
     "facebook-chat-api": "^1.4.0"
   },
   "devDependencies": {
-    "electron": "~1.7.8",
+    "electron": "~1.7.11",
     "electron-builder": "^19.54.0",
     "electron-packager": "^10.1.1"
   }

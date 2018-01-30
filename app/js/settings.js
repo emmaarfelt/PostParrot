@@ -5,7 +5,7 @@ const loginstore = require('./state-storage.js').getLoginstore();
 const store = new Store({
   name: 'settings',
   defaults: {
-    statistics: { totalreplies: 0, totalhours: 0 },
+    statistics: { totalreplies:0, totalhours:0},
     whitelist: {friends:[]},
     settings: {ignoregroup:true,replymentions:false},
     reply: 'I\'m currently unavailable, and use PostParrot to auto-reply to messages. If urgent, give me a call.'
@@ -146,9 +146,10 @@ function editWhitelist() {
 }
 
 /* Settings: Statistics */
-var number_send = document.getElementById('number-response').textContent = statistics.totalreplies;
-var hours_spend = document.getElementById('hours-spend').textContent = ((parseFloat(statistics.totalhours)) / 60 / 60).toFixed(2);
-
+document.getElementById('tab-4').addEventListener('click', function() {
+  var number_send = document.getElementById('number-response').textContent = statistics.totalreplies;
+  var hours_spend = document.getElementById('hours-spend').textContent = ((parseFloat(statistics.totalhours)) / 60 / 60).toFixed(2);
+});
 
 /* Get settings from other files */
 var methods = {
