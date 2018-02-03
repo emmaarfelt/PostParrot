@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "license": "MIT",
   "description": "Autoreply for Messenger",
-  "author": "Emma Arfelt",
+  "author": "Emma Arfelt <trordu@selv.dk>",
   "main": "main.js",
   "scripts": {
     "postinstall": "install-app-deps",
@@ -31,6 +31,9 @@
     "win": {
       "target": "NSIS",
       "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": "deb"
     }
   },
   "dependencies": {
