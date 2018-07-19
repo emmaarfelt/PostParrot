@@ -64,59 +64,69 @@ function stopReplies() {
 function startReply() {
   startTime = new Date();
   var reply = settings.getReplyText();
-  login({appState: savedLogin}, (err, api) => {
-    if(err) return console.log(err); window.location.href = 'login.html';
 
-    api.setOptions({
-       logLevel: "silent"
-    });
-
-    var ownUserID = api.getCurrentUserID();
-
-    var listening = api.listen((err, message) => {
-      if(err) return console.error(err);
-      if(!message.isGroup) {
-        if(!whitelist.friends.includes(message.senderID)) {
-          if(!replied_threads.contains(message.threadID)) {
-            api.sendMessage(reply, message.threadID);
-            replied_threads.add(message.threadID);
-          } else {  /* Already replied in this thread */ }
-        } else { whitelist_notify(message.body) }
+  try {
+    login({appState: savedLogin}, (err, api) => {
+      if(err) {
+        window.location.href = 'login.html';
+        return err;
       } else {
-          if(IGNORE_GROUPCHAT) {
-            if(REPLY_MENTIONS) {
-              var mentions = message.mentions;
-              if(!mentions == null) {
-                if(mentions.contains(ownUserID)) {
-                  api.sendMessage(reply, message.threadID);
-                  replied_threads.add(message.threadID);
-                }
-              }
-            } else {
-              /* Do nothing. Ignoring all group messages */
-            }
+        api.setOptions({
+           logLevel: "verbose"
+        });
+
+        var ownUserID = api.getCurrentUserID();
+
+        var listening = api.listen((err, message) => {
+          if(err) return console.error(err);
+          console.log("received message")
+          console.log(message.mentions)
+          if(!message.isGroup) {
+            if(!whitelist.friends.includes(message.senderID)) {
+              if(!replied_threads.contains(message.threadID)) {
+                console.log("Auto-replied")
+                api.sendMessage(reply, message.threadID);
+                replied_threads.add(message.threadID);
+              } else {  /* Already replied in this thread */ }
+            } else { whitelist_notify(message.body) }
           } else {
-            /* Replying to all messages including group chats */
-            api.sendMessage(reply, message.threadID);
-            replied_threads.add(message.threadID);
+              if(IGNORE_GROUPCHAT) {
+                if(REPLY_MENTIONS) {
+                  var mentions = message.mentions;
+                  if(!mentions == null) {
+                    if(mentions.contains(ownUserID)) {
+                      api.sendMessage(reply, message.threadID);
+                      replied_threads.add(message.threadID);
+                    }
+                  }
+                } else {
+                  /* Do nothing. Ignoring all group messages */
+                }
+              } else {
+                /* Replying to all messages including group chats */
+                api.sendMessage(reply, message.threadID);
+                replied_threads.add(message.threadID);
+              }
           }
-      }
+       });
+
+       stop_replies.addEventListener('click', function () {
+         api.logout();
+         return listening();
+       });
+
+       log_out.addEventListener('click', func, false);
+       function func(event) {
+         if ( event.preventDefault ) event.preventDefault();
+         event.returnValue = false;
+         api.logout();
+         loginstore.clear();
+         window.location = this.href;
+         return listening();
+       }
+     }
    });
-
-   stop_replies.addEventListener('click', function () {
-     api.logout();
-     return listening();
-   });
-
-   log_out.addEventListener('click', func, false);
-   function func(event) {
-     if ( event.preventDefault ) event.preventDefault();
-     event.returnValue = false;
-     api.logout();
-     loginstore.clear();
-     window.location = this.href;
-     return listening();
-   }
-
- });
+ } catch(err) {
+        console.log("[CONNECTION] connection failed! (timeout)" + err);
+    }
 }

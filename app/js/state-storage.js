@@ -5,8 +5,6 @@ const loginstore = new Store({
   name: 'login'
 });
 
-var appstate = loginstore.get('appState');
-
 /* Get settings from other files */
 var methods = {
 	get: function(name) {
